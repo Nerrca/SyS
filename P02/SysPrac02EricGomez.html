@@ -1,0 +1,439 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Practica 2: se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-02-25"><meta name="DC.source" content="SysPrac02CarlosGomez.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Practica 2: se&ntilde;ales en tiempo continuo</h1><!--introduction--><p>integrantes: Gomez Garcia Carlos Eduardo Contreras Porfirio Alejandro Serrano Gomez Erick</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#2">Introducion</a></li><li><a href="#3">Problema 1</a></li><li><a href="#18">Problema 2</a></li><li><a href="#25">Problema 3</a></li><li><a href="#29">Problema 4</a></li></ul></div><h2 id="1">Objetivos</h2><div><ul><li>Manipulacion basica de MATLAB</li><li>Graficas de se&ntilde;les reales y complejas continuas</li><li>Transformacion de se&ntilde;ales continuas (escalamientos y traslaciones)</li><li>Calculo de energia y potencia de se&ntilde;ales continuas</li></ul></div><h2 id="2">Introducion</h2><p>Breve historia de matlab <a href="http://catarina.udlap.mx/u_dl_a/tales/documentos/lep/garcia_b_s/capitulo2.pdf">http://catarina.udlap.mx/u_dl_a/tales/documentos/lep/garcia_b_s/capitulo2.pdf</a></p><p>Que es Matlab? <a href="https://la.mathworks.com/help/matlab/learn_matlab/product-description.html">https://la.mathworks.com/help/matlab/learn_matlab/product-description.html</a></p><p>Alternativas a Matlab <a href="https://maslinux.es/3-alternativas-de-codigo-abierto-a-matlab/">https://maslinux.es/3-alternativas-de-codigo-abierto-a-matlab/</a></p><h2 id="3">Problema 1</h2><pre class="codeinput"><span class="comment">%*M1.1 funciones anonimas*.</span>
+<span class="comment">%definimos la funcion f(t) = e^t*cos(2&#960;t).</span>
+  f= @(t) exp(-t).*cos(2*pi*t);
+<span class="comment">%ya definida f(t) la podemos evalular</span>
+ t = 0;
+  f(t)
+</pre><pre class="codeoutput">
+ans =
+
+     1
+
+</pre><pre class="codeinput"><span class="comment">%tambi&eacute;n se pude evaluar de la siguiente forma, sustituyendo</span>
+<span class="comment">%directamente f(0)</span>
+  f(0)
+<span class="comment">%para evaluar una funcion en diferentes valores definimos un vector:</span>
+  t = (-2:2);
+  f(t)
+</pre><pre class="codeoutput">
+ans =
+
+     1
+
+
+ans =
+
+    7.3891    2.7183    1.0000    0.3679    0.1353
+
+</pre><pre class="codeinput"><span class="comment">%graficamos a f(t) introduciendo el vector t que va de -2 a 2</span>
+  figure
+  plot(t,f(t));
+  title(<span class="string">'M1.1'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+<span class="comment">%la gr&aacute;fica M1.1 no muestra el comportamiento deseado, debido a que no</span>
+<span class="comment">%tabulamos los suficientes puntos.</span>
+<span class="comment">%redefinimos al vector t que ahora va de -2 a 2 pero en lugar de ir de 1</span>
+<span class="comment">%en 1 va 0.01 en 0.01</span>
+  t = (-2:0.01:2);
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_01.png" alt=""> <p>evaluamos nuevamente la funcion y graficamos</p><pre class="codeinput">  figure
+  plot(t,f(t));
+  title(<span class="string">'M1.2'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+<span class="comment">%la figura M1.2 ya muestra el comportamiento esperado</span>
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_02.png" alt=""> <pre class="codeinput"><span class="comment">%*M1.2 operadores relacionales y la funcion escalon unitario*</span>
+<span class="comment">%definimos la funcionn escalon unitario:</span>
+  u = @(t) t&gt;=0;
+
+  t = (-2:2);
+  figure
+  plot (t,u(t));
+  title(<span class="string">'M1.3'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>);
+<span class="comment">%nuevamente la gr&aacute;fica M1.3 no muestra lo esperado.</span>
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_03.png" alt=""> <pre class="codeinput"><span class="comment">%hacemos la correcion del vector t</span>
+  t = (-2:0.01:2);
+<span class="comment">%graficamos u(t)</span>
+  figure
+  plot (t,u(t));
+  xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>);
+  axis ([-2 2 -0.1 1.1]);
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_04.png" alt=""> <pre class="codeinput"><span class="comment">%definimos el pulso unitario p(t) = u(t) &#8722; u(t &#8722; 1)</span>
+  p = @(t) t&gt;=0 &amp; t&lt;1;
+  figure
+  t = -1:0.01:2; plot(t,p(t));
+  title(<span class="string">'M1.5'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'p(t) = u(t)-u(t-1)'</span>);
+  axis ([-1 2 -.1 1.1]);
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_05.png" alt=""> <pre class="codeinput"><span class="comment">%*M1.3 operaciones en la variable independiente*</span>
+<span class="comment">% |consideremos g(t) = f(t)u(t) = e^&#8722;t*cos(2&#960;t)u(t)|</span>
+  g = @(t) exp(-t).*cos(2*pi*t).*(t&gt;=0);
+  t = -2:0.01:2;
+<span class="comment">%</span>
+</pre><p>g(2t+1)</p><pre class="codeinput">  figure
+  title(<span class="string">'M1.6'</span>); plot(t,g(2*t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(2t+1)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_06.png" alt=""> <pre class="codeinput"><span class="comment">%g(-t+1)</span>
+  figure
+  title(<span class="string">'M1.7'</span>); plot(t,g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(-t+1)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_07.png" alt=""> <pre class="codeinput"><span class="comment">%g(2t+1)</span>
+  figure
+  title(<span class="string">'M1.8'</span>); plot(t,g(2*t+1) +g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'h(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_08.png" alt=""> <pre class="codeinput"><span class="comment">%*M1.4 Integracion y estimacion de la energia de una se&#65533;al*</span>
+<span class="comment">%considera la se&#65533;al x(t) = e^t(u(t)  u(t&lt;1))</span>
+<span class="comment">%la energia de la se&#65533;al x(t) se expresa como</span>
+<span class="comment">%Ex = Integral [-inf, inf] |x(t)|2 dt = intgerla [-inf, in] e^2t dt.</span>
+<span class="comment">%definimos la funcion x(t)</span>
+  x = @(t) exp(-t).*((t&gt;=0) &amp; (t&lt;1));
+  t = 0:0.01:1;
+</pre><pre class="codeinput"><span class="comment">%calulamos la energia de la se&ntilde;al</span>
+  E_x = sum(x(t).*x(t)*0.01)
+<span class="comment">%este resultado no es del todo exacto, ya que calcularlo de esta manera</span>
+<span class="comment">%no estan exacta como integrar</span>
+<span class="comment">%primero elevamos al cuadrado x(t)</span>
+ x_squared = @(t) exp(-2*t).*((t&gt;=0) &amp; (t&lt;1));
+<span class="comment">%integramos</span>
+ E_x = integral(x_squared,0,1)
+</pre><pre class="codeoutput">
+E_x =
+
+    0.4367
+
+
+E_x =
+
+    0.4323
+
+</pre><pre class="codeinput"><span class="comment">%ahora considera g(t), definida previamente como</span>
+<span class="comment">% Eg = &#8747;e^&#8722;2tcos^2(2&#960;t)dt. Existe una soluci&oacute;n de forma cerrada, pero requiere un poco de esfuerzo.</span>
+<span class="comment">%MATLAB proporciona una respuesta m&aacute;s r&aacute;pidamente</span>
+ g_squared = @(t) exp(-2*t).*(cos(2*pi*t).^2).*(t&gt;=0);
+ t = 0:0.001:100;
+ E_g = sum(g_squared(t)*0.001)
+<span class="comment">% una mejor aproximacion se obtiene integrando</span>
+  E_g = integral(g_squared, 0,100)
+</pre><pre class="codeoutput">
+E_g =
+
+    0.2567
+
+
+E_g =
+
+    0.2562
+
+</pre><h2 id="18">Problema 2</h2><p><img vspace="5" hspace="5" src="problema2.PNG" alt=""> </p><p>definimos la funcion x(t)</p><pre class="codeinput">  figure
+  x = @(t) (-t).*(t&gt;=-4 &amp; t&lt;=0) + (t).*(t&gt;0 &amp; t&lt;=2);
+  t = -5:0.01:5;
+  title(<span class="string">'x(t)'</span>); plot(t,x(t)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid;
+  t = -5:0.01:10;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_09.png" alt=""> <p>x(t-4)</p><pre class="codeinput">  figure
+  plot(t,x(t-4)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t-4)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_10.png" alt=""> <p>x(t/1.5)</p><pre class="codeinput">  t = -10:0.01:10;
+  figure
+  plot(t,x(t./(1.5))); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t/1.5)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_11.png" alt=""> <p>x(-t)</p><pre class="codeinput">  figure
+  plot(t,x(-t)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(-t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_12.png" alt=""> <p>x(2t-4)</p><pre class="codeinput">  figure
+  plot(t,x(2.*t-4)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(2t-4)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_13.png" alt=""> <p>x(2-t)</p><pre class="codeinput">  figure
+  plot(t,x(2-t)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(2-t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_14.png" alt=""> <h2 id="25">Problema 3</h2><p><b>Graficar las siguientes funciones</b> estas graficas van de R-&gt;R <a href="<transformadasFourier.PNG">&lt;transformadasFourier.PNG</a>&gt;</p><pre class="codeinput">a=1/2; t=-10:0.01:10;
+f=@(t) exp(-a*t).*(t&gt;0);
+grafica2d(t,f(t),<span class="string">'f(t)'</span>);
+
+w=-10:0.01:10;
+f=@(t) 1./(1j.*w+a);
+grafica2d(t,f(t), <span class="string">'F(jw)=F(w)'</span>);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_15.png" alt=""> <img vspace="5" hspace="5" src="SysPrac02CarlosGomez_16.png" alt=""> <pre class="codeinput">f=@(t) t.*exp(-a*t).*(t&gt;0);
+grafica2d(t,f(t),<span class="string">'f(t)'</span>);
+
+f=@(t) 1./(1j.*w+a).^2;
+grafica2d(t,f(t), <span class="string">'F(jw)=F(w)'</span>);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_17.png" alt=""> <img vspace="5" hspace="5" src="SysPrac02CarlosGomez_18.png" alt=""> <pre class="codeinput">n=2;
+f=@(t) (t.^n).*exp(-a.*t).*(t&gt;0);
+grafica2d(t,f(t), <span class="string">'f(t)'</span>);
+
+f=@(t) factorial(n)./(1j.*w+a).^(n+1);
+grafica2d(t,f(t), <span class="string">'F(jw)=F(w)'</span>);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_19.png" alt=""> <img vspace="5" hspace="5" src="SysPrac02CarlosGomez_20.png" alt=""> <h2 id="29">Problema 4</h2><p>Graficar las mismas funciones del problema 3 pero que vayan de R-&gt;R^2</p><pre class="codeinput">f = @(w) 1./(w.*1j+a);
+grafica3d(w,real(f(w)), imag(f(w)),<span class="string">'F(jw)=F(W)'</span>);
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_21.png" alt=""> <pre class="codeinput">f=@(w) 1./(1j.*w+a).^2;
+grafica3d(w,real(f(w)), imag(f(w)),<span class="string">'F(jw)=F(W)'</span>);
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_22.png" alt=""> <pre class="codeinput">f=@(w) factorial(n)./(1j.*w+a).^(n+1);
+grafica3d(w,real(f(w)), imag(f(w)),<span class="string">'F(jw)=F(W)'</span>);
+</pre><img vspace="5" hspace="5" src="SysPrac02CarlosGomez_23.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+  %% Practica 2: señales en tiempo continuo
+  % integrantes: 
+  % Gomez Garcia Carlos Eduardo
+  % Contreras Porfirio Alejandro
+  % Serrano Gomez Erick
+  % 
+  %% Objetivos
+  %   
+  % * Manipulacion basica de MATLAB
+  % * Graficas de señles reales y complejas continuas
+  % * Transformacion de señales continuas (escalamientos y traslaciones)
+  % * Calculo de energia y potencia de señales continuas
+  %
+  %% Introducion
+  %
+  % Breve historia de matlab
+  % <http://catarina.udlap.mx/u_dl_a/tales/documentos/lep/garcia_b_s/capitulo2.pdf>
+  %
+  % Que es Matlab?
+  % <https://la.mathworks.com/help/matlab/learn_matlab/product-description.html>
+  %
+  % Alternativas a Matlab
+  % <https://maslinux.es/3-alternativas-de-codigo-abierto-a-matlab/> 
+  %
+  %
+  %
+  %
+  %% Problema 1
+%*M1.1 funciones anonimas*.
+%definimos la funcion f(t) = e^t*cos(2πt).   
+  f= @(t) exp(-t).*cos(2*pi*t);
+%ya definida f(t) la podemos evalular
+ t = 0;
+  f(t)
+
+%%
+%también se pude evaluar de la siguiente forma, sustituyendo
+%directamente f(0)
+  f(0)
+%para evaluar una funcion en diferentes valores definimos un vector:
+  t = (-2:2);
+  f(t)
+%%  
+%graficamos a f(t) introduciendo el vector t que va de -2 a 2 
+  figure
+  plot(t,f(t));
+  title('M1.1'); xlabel('t'); ylabel('f(t)'); grid;
+%la gráfica M1.1 no muestra el comportamiento deseado, debido a que no
+%tabulamos los suficientes puntos.
+%redefinimos al vector t que ahora va de -2 a 2 pero en lugar de ir de 1
+%en 1 va 0.01 en 0.01
+  t = (-2:0.01:2);
+%%  
+% evaluamos nuevamente la funcion y graficamos
+  figure
+  plot(t,f(t));
+  title('M1.2'); xlabel('t'); ylabel('f(t)'); grid;
+%la figura M1.2 ya muestra el comportamiento esperado
+
+%%
+%*M1.2 operadores relacionales y la funcion escalon unitario*
+%definimos la funcionn escalon unitario:
+  u = @(t) t>=0;
+  
+  t = (-2:2);
+  figure
+  plot (t,u(t));
+  title('M1.3'); xlabel('t'); ylabel('u(t)');
+%nuevamente la gráfica M1.3 no muestra lo esperado.
+%%
+%hacemos la correcion del vector t
+  t = (-2:0.01:2);
+%graficamos u(t)
+  figure
+  plot (t,u(t));
+  xlabel('t'); ylabel('u(t)');
+  axis ([-2 2 -0.1 1.1]);
+%%
+%definimos el pulso unitario p(t) = u(t) − u(t − 1)
+  p = @(t) t>=0 & t<1;
+  figure
+  t = -1:0.01:2; plot(t,p(t));
+  title('M1.5'); xlabel('t'); ylabel('p(t) = u(t)-u(t-1)');
+  axis ([-1 2 -.1 1.1]);
+%%  
+%*M1.3 operaciones en la variable independiente*
+% |consideremos g(t) = f(t)u(t) = e^−t*cos(2πt)u(t)| 
+  g = @(t) exp(-t).*cos(2*pi*t).*(t>=0);
+  t = -2:0.01:2;
+%
+%%
+% g(2t+1) 
+  figure
+  title('M1.6'); plot(t,g(2*t+1)); xlabel('t'); ylabel('g(2t+1)'); grid;
+%%  
+%g(-t+1)
+  figure
+  title('M1.7'); plot(t,g(-t+1)); xlabel('t'); ylabel('g(-t+1)'); grid;
+%%
+%g(2t+1)
+  figure
+  title('M1.8'); plot(t,g(2*t+1) +g(-t+1)); xlabel('t'); ylabel('h(t)'); grid;
+%%  
+%*M1.4 Integracion y estimacion de la energia de una se�al*
+%considera la se�al x(t) = e^t(u(t)  u(t<1))
+%la energia de la se�al x(t) se expresa como 
+%Ex = Integral [-inf, inf] |x(t)|2 dt = intgerla [-inf, in] e^2t dt.
+%definimos la funcion x(t)
+  x = @(t) exp(-t).*((t>=0) & (t<1));
+  t = 0:0.01:1;
+%%  
+%calulamos la energia de la señal
+  E_x = sum(x(t).*x(t)*0.01)
+%este resultado no es del todo exacto, ya que calcularlo de esta manera
+%no estan exacta como integrar  
+%primero elevamos al cuadrado x(t)
+ x_squared = @(t) exp(-2*t).*((t>=0) & (t<1));
+%integramos
+ E_x = integral(x_squared,0,1)
+%% 
+%ahora considera g(t), definida previamente como 
+% Eg = ∫e^−2tcos^2(2πt)dt. Existe una solución de forma cerrada, pero requiere un poco de esfuerzo. 
+%MATLAB proporciona una respuesta más rápidamente
+ g_squared = @(t) exp(-2*t).*(cos(2*pi*t).^2).*(t>=0);
+ t = 0:0.001:100;
+ E_g = sum(g_squared(t)*0.001)
+% una mejor aproximacion se obtiene integrando
+  E_g = integral(g_squared, 0,100)
+%%  
+  %% Problema 2
+  %
+  % <<problema2.PNG>> 
+  % 
+% definimos la funcion x(t)
+  figure
+  x = @(t) (-t).*(t>=-4 & t<=0) + (t).*(t>0 & t<=2);
+  t = -5:0.01:5;
+  title('x(t)'); plot(t,x(t)); xlabel('t'); ylabel('x(t)'); grid;
+  t = -5:0.01:10;
+%%  
+  % x(t-4)
+  figure
+  plot(t,x(t-4)); xlabel('t'); ylabel('x(t-4)'); grid;
+%%  
+  % x(t/1.5)
+  t = -10:0.01:10;
+  figure
+  plot(t,x(t./(1.5))); xlabel('t'); ylabel('x(t/1.5)'); grid;
+%%  
+  % x(-t)
+  figure
+  plot(t,x(-t)); xlabel('t'); ylabel('x(-t)'); grid;
+%%  
+  % x(2t-4)
+  figure
+  plot(t,x(2.*t-4)); xlabel('t'); ylabel('x(2t-4)'); grid;
+%%  
+  % x(2-t)
+  figure
+  plot(t,x(2-t)); xlabel('t'); ylabel('x(2-t)'); grid;
+%%
+ %% Problema 3 
+ %%
+ % *Graficar las siguientes funciones* estas graficas van de R->R
+ % <<transformadasFourier.PNG>> 
+ %  
+ % 
+ % 
+ % 
+ 
+a=1/2; t=-10:0.01:10;
+f=@(t) exp(-a*t).*(t>0);
+grafica2d(t,f(t),'f(t)');
+
+w=-10:0.01:10;
+f=@(t) 1./(1j.*w+a);
+grafica2d(t,f(t), 'F(jw)=F(w)');
+%%
+f=@(t) t.*exp(-a*t).*(t>0);
+grafica2d(t,f(t),'f(t)');
+
+f=@(t) 1./(1j.*w+a).^2;
+grafica2d(t,f(t), 'F(jw)=F(w)');
+%%
+n=2;
+f=@(t) (t.^n).*exp(-a.*t).*(t>0);
+grafica2d(t,f(t), 'f(t)');
+
+f=@(t) factorial(n)./(1j.*w+a).^(n+1);
+grafica2d(t,f(t), 'F(jw)=F(w)');
+%% Problema 4  
+% Graficar las mismas funciones del problema 3 pero que vayan de R->R^2
+% 
+f = @(w) 1./(w.*1j+a);
+grafica3d(w,real(f(w)), imag(f(w)),'F(jw)=F(W)');
+%
+%%
+f=@(w) 1./(1j.*w+a).^2;
+grafica3d(w,real(f(w)), imag(f(w)),'F(jw)=F(W)');
+%%
+f=@(w) factorial(n)./(1j.*w+a).^(n+1);
+grafica3d(w,real(f(w)), imag(f(w)),'F(jw)=F(W)');
+
+  
+  
+##### SOURCE END #####
+--></body></html>
