@@ -1,0 +1,504 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-24"><meta name="DC.source" content="Practica4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n</h1><!--introduction--><p>integrantes: G&oacute;mez Garc&iacute;a Carlos Eduardo Contreras Porfirio Alejandro G&oacute;mez Serrano Eric</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#2">Introducci&oacute;n</a></li><li><a href="#7">Regla compuesta de Simpson</a></li><li><a href="#8">Cuadratura Gausseana</a></li><li><a href="#9">PR04 problema 1</a></li><li><a href="#13">PR04 problema 3</a></li><li><a href="#17">PR06 problema e)</a></li><li><a href="#21">PR06 problema f)</a></li><li><a href="#25">Apendice</a></li></ul></div><h2 id="1">Objetivos</h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas</li></ul></div><h2 id="2">Introducci&oacute;n</h2><p>Teorema fundamental del c&aacute;lculo</p><p>El Teorema fundamental del c&aacute;lculo dice que la derivada de la integral <img src="Practica4_eq12375577266444837934.png" alt="$F(x)$"> de la funcion continua <img src="Practica4_eq17663307419741296505.png" alt="$f(x)$"> es la propia <img src="Practica4_eq17663307419741296505.png" alt="$f(x)$"></p><p><img src="Practica4_eq13685698313755877225.png" alt="$F'(x)=f(x)$"></p><p>Segun el Teorema fundamental del calculo se tiene que ver que si la funcion es integrable y el mismo teorema nos dice que toda funcion continua es integrable en un intervalo cualquiera.</p><p>Tenemos la funcion <img src="Practica4_eq08515753599312657013.png" alt="$f(t)= 2e^{2t}$"> y podemos ver que es integrable. Asi que podemos proceder a integrar en un intervalo de [-2 2].</p><p><img src="Practica4_eq04432929101149607496.png" alt="$$\int_{0}^{\pi/2} sen(t)dt$$"></p><p>Desde el punto de vista geometrico es ver el area que delimita la funcion y construir un polinomio que se parescan o tengan la misma altura para ser equivalente. Propondremos el polinomio <img src="Practica4_eq14557051934096514348.png" alt="$P(t)=\sqrt{t}$"></p><p>Procedemos a integrar el polinomio</p><p><img src="Practica4_eq12266177364500965173.png" alt="$$\int_{0}^{\pi/2} \sqrt{t}dt= \int_{0}^{\pi/2} t^{\pi/2}dt= \left [&#xA;\frac{2t^{3/2}}{3}\right ]_{0}^{\pi/2}= \frac{2(\frac{\pi}{2})^{3/2}}{3}=&#xA;1.3124$$"></p><p>Entonces</p><p><img src="Practica4_eq17311659669001453205.png" alt="$$\int_{0}^{\pi/2} sen(t)dt< 1.3124$$"></p><p>Regla del Trapecio</p><p>Formulas cerradas de newton-cotes Se trata de aproximar la integral de [a b] de la funcion. Lo que tratan de hacer estas formulas es resolver la integral derivando la funcion un numero determinado de veces y de acuerdo a la Teoria de Lagrande es igual a un polinomio de grado n que es un polinomio que va a considir con la funcion mas un termino de error.</p><p>La primer formula de newton-cotes se le conoce como Regla del Trapecio que hace es encontrar un polinimio de grado 1. Al lugar de integrar la funcion esta integrando el polinimio de grado 1.</p><p><img src="Practica4_eq08328599139082157758.png" alt="$$\int_{x_0}^{x_1} f(x)dx= \frac{h}{2}\left [ f(x_0)-f(x_1)) \right&#xA;]-\frac{h^{3}}{12}{f}''(\varepsilon )$ , $x_0<\varepsilon<x_1$$"></p><p><img src="Practica4_eq10571709295379849532.png" alt="$h= b-a$">,</p><p><img src="Practica4_eq13169835679341907752.png" alt="$x_0= a$">,</p><p><img src="Practica4_eq06686139948727878582.png" alt="$x_1= b$">,</p><p><img src="Practica4_eq11774209982367998162.png" alt="$x_i= a+i(b-a)$"></p><p>Entonces aplicando la regla de trapecio nos queda</p><p><img src="Practica4_eq05081556763019124750.png" alt="$$\int_{0}^{\frac{\pi}{2}} sen(x)dx= \frac{\frac{\ pi}{2}}{2}\left [0-1 \right ]-\frac{\frac{\pi^3}{8}}{12}\left ( -sin(\varepsilon ) \right )= \frac{\pi}{4}+\frac{\pi^3}{96}sin(\varepsilon )$"></p><p>Regla de Simpson</p><p><img src="Practica4_eq13136803436721791801.png" alt="$$\int_{x_0}^{x_2} f(x)dx= \frac{h}{3}\left [ f(x_0)+4f(x_1)+f(x_2)) \right&#xA;]-\frac{h^{5}}{90}{f}^4(\varepsilon )$ , $x_0<\varepsilon<x_2$$"></p><p><img src="Practica4_eq04482798107534238409.png" alt="$h= \frac{b-a}{2}$">,</p><p><img src="Practica4_eq13169835679341907752.png" alt="$x_0= a$">,</p><p><img src="Practica4_eq00185421309086378495.png" alt="$x_2= b$">,</p><p><img src="Practica4_eq04163067834712618729.png" alt="$x_i= a+ih$"></p><p>Aplicamos la regla de simpson</p><p><img src="Practica4_eq15944540446691410710.png" alt="$$\int_{0}^{\frac{\pi}{2}} sen(x)dx= \frac{\pi}{12}\left ( 0+2\sqrt{2}+1&#xA;\right )- \frac{\pi^3}{92160}\left ( sin(\varepsilon) \right )=&#xA;1.002-\frac{\pi^5}{92160}sin(\varepsilon)$$"></p><p>Regla de tres octavos de simpson</p><p><img src="Practica4_eq05914155486167140475.png" alt="$$\int_{x_0}^{x_3} f(x)dx= \frac{3h}{8}\left [ f(x_0)+3f(x_1)+3f(x_2)+f(x_3) \right&#xA;]-\frac{3h^{5}}{80}{f}^4(\varepsilon )$ , $x_0<\varepsilon<x_2$$"></p><p><img src="Practica4_eq09730859571098746372.png" alt="$h= \frac{b-a}{3}$">,</p><p><img src="Practica4_eq13169835679341907752.png" alt="$x_0= a$">,</p><p><img src="Practica4_eq13368965762025055522.png" alt="$x_3 b$">,</p><p><img src="Practica4_eq04163067834712618729.png" alt="$x_i= a+ih$"></p><p>Aplicamos la regla de tres octavos de simpson</p><p><img src="Practica4_eq11189880908596506980.png" alt="$$\int_{0}^{\frac{\pi}{2}} sin(x)dx= \frac{\pi}{16}\left [ 0+.0274+.0548+1 \right&#xA;]-\frac{\pi^5}{207360}sin(\varepsilon)= 1.001-\frac{\pi^5}{207360}sin(\varepsilon)$$"></p><p>Regla cerrada del trapecio</p><p><img src="Practica4_eq17973858749464694453.png" alt="$$  \int_{a}^{b}f(x)dx =\frac{h}{2} [f(a)+2\sum_{i=1}^{n-1}f(x_i)+f(b)]-\frac{b-a}{12}h^2f''(\mu), \space a<\mu<b $$"></p><p><img src="Practica4_eq08984225997457563733.png" alt="$n$">= numero de subintervalos</p><p><img src="Practica4_eq06681982733906799284.png" alt="$h= \frac{b-a}{n}$"></p><p><img src="Practica4_eq10329011143219680431.png" alt="$x_j=a+hj$"></p><p><img src="Practica4_eq01779306666092240351.png" alt="$j=0,1,2,..,n$"></p><p>Para nuestro ejemplo</p><p><img src="Practica4_eq17979244203235740440.png" alt="$n=4$"></p><p><img src="Practica4_eq08961927457465716134.png" alt="$h=\frac{\pi}{8}$"></p><p><img src="Practica4_eq11997385643406710465.png" alt="$x_0=0$"></p><p><img src="Practica4_eq14807519025976067145.png" alt="$x_1=\frac{\pi}{8}$"></p><p><img src="Practica4_eq03151311954195383301.png" alt="$x_2=\frac{\pi}{4}$"></p><p><img src="Practica4_eq14842437201138115526.png" alt="$x_3=\frac{3\pi}{8}$"></p><p><img src="Practica4_eq04039630338384114776.png" alt="$x_4=\frac{\pi}{2}$"></p><p><img src="Practica4_eq10526789129142765815.png" alt="$$\int_{o}^{\frac{\pi}{2}}sen(2x)dx =\frac{pi}{16} [2(sen(\frac{\pi}{8})+sen(\frac{3\pi}{8})]+\frac{\pi^3}{24*8^{2}}(4sen(2\mu)) ,\space 0<\mu<\frac{\pi}{2} $$"></p><p><img src="Practica4_eq03212890238712375273.png" alt="$=0.94+0.08sen(2\mu), 0<\mu<\frac{\pi}{2}$"></p><h2 id="7">Regla compuesta de Simpson</h2><p><img src="Practica4_eq04261621517163853102.png" alt="$$\int_{a}^{b}f(x)dx =\frac{h}{3} [f(a)+2\sum_{i=1}^{\frac{n}{2}-1}f(x_{2i})+4\sum_{i=1}^{\frac{n}{2}}f(x_{2i-1})+f(b)]-\frac{b-a}{180}h^4f''(\mu), \space a<\mu<b $$"></p><p><img src="Practica4_eq08984225997457563733.png" alt="$n$"> par= numero de subintervalos</p><p><img src="Practica4_eq14663764134541110566.png" alt="$h=\frac{b-a}{n}$"></p><p><img src="Practica4_eq14259799029520954004.png" alt="$x_i=a+hi$"></p><p><img src="Practica4_eq01779306666092240351.png" alt="$j=0,1,2,..,n$"></p><p>Para nuestro ejemplo</p><p><img src="Practica4_eq06971487245991217504.png" alt="$n=6$"></p><p><img src="Practica4_eq02986312053009509385.png" alt="$h=\frac{\pi}{12}$"></p><p><img src="Practica4_eq11997385643406710465.png" alt="$x_0=0$"></p><p><img src="Practica4_eq05551071695010321236.png" alt="$x_1=\frac{\pi}{12}$"></p><p><img src="Practica4_eq02852770522453797699.png" alt="$x_2=\frac{\pi}{6}$"></p><p><img src="Practica4_eq18217145160981945977.png" alt="$x_3=\frac{\pi}{4}$"></p><p><img src="Practica4_eq17573977826817719016.png" alt="$x_4=\frac{\pi}{3}$"></p><p><img src="Practica4_eq18384038966521925618.png" alt="$x_5=\frac{5\pi}{12}$"></p><p><img src="Practica4_eq03270084150747827090.png" alt="$x_6=\frac{\pi}{2}$"></p><p><img src="Practica4_eq01619939602280270897.png" alt="$$\int_{0}^{\frac{\pi}{2}}sen(2x)dx =\frac{\pi}{36}[2(sen(\frac{\pi}{3})+sen(\frac{2\pi}{3})+4(sen(\frac{\pi}{6})+sen(\frac{\pi}{2})+sen(\frac{5\pi}{6})]+\frac{\pi^5}{2*180*12^4}(16sen(2\mu)), 0<\mu<\frac{\pi}{2} $$"></p><p><img src="Practica4_eq12018886912923293498.png" alt="$=1.00043-0.0006sen(2\mu),0<\mu<\frac{\pi}{2}$"></p><h2 id="8">Cuadratura Gausseana</h2><p>Para cuadratura Gausseana utlizamos polinomios de Legendare en vez de los polinomios de Lagrange, este metodo esta definido para integrales definidas en un intervalo de -1 a 1, por lo tanto usamos un cambio de variable para poder usarlo con cualquier funcion</p><p><img src="Practica4_eq15571002995389229490.png" alt="$$\int_{a}^{b}f(t)dt=\int_{-1}^{1}f(\frac{(b-a)x+a+b}{2})\frac{b-a}{2}dx$$"></p><p>y la aproxiamion de una integral por cuadratura es:</p><p><img src="Practica4_eq12472089028434731609.png" alt="$$\int_{-1}^{1}f(x)dx=\sum_{i=1}^{n}C_if(x_i)$$"></p><p>Donde <img src="Practica4_eq06721991517679324891.png" alt="$C_i$"> es el coeficiente de Legendare y <img src="Practica4_eq08383031602117067423.png" alt="$x_i$"> son las raices del polinomio de Legendare.</p><p>Para nuestro ejemplo la integral queda:</p><p><img src="Practica4_eq16501282983542184707.png" alt="$$\int_{0}^{\frac{\pi}{2}}sen(2t)dt=\int_{-1}^{1}\frac{4}{\pi}sen((\frac{\pi}{2})x+\frac{\pi}{2})dx=\int_{-1}^{1}\frac{4}{\pi}sen((\frac{\pi}{2})(x+1))dx$$"></p><p>con <img src="Practica4_eq00013378311338420650.png" alt="$n=3$"> tenemos <img src="Practica4_eq11113989430267217867.png" alt="$C_1=0.5555555556$"></p><p><img src="Practica4_eq15367799685140055997.png" alt="$C_2=0.8888888889$"></p><p><img src="Practica4_eq09919694916952905476.png" alt="$C_3=0.5555555556$"></p><p><img src="Practica4_eq16333521378030383283.png" alt="$x_1=0.7745966692$"></p><p><img src="Practica4_eq10604540600389269692.png" alt="$x_2=0.0000000000$"></p><p><img src="Practica4_eq07193066363556939827.png" alt="$x_3=-0.7745966692$"></p><p><img src="Practica4_eq15466616028529463668.png" alt="$$\int_{0}^{\frac{\pi}{2}}sen(2t)dt=\frac{\pi}{4}[0.5555555556sen(\frac{\pi}{2}(1+0.7745966692))+0.8888888889sen(\frac{\pi}{2})+0.5555555556sen(\frac{\pi}{2}(1-0.7745966692))]$$"></p><p><img src="Practica4_eq03723364891831295568.png" alt="$=1.00069$"></p><h2 id="9">PR04 problema 1</h2><pre class="codeinput">t = -10:0.001:10;
+x = @(t) ((t&gt;=0).*(1-t).*(t&lt;=1)+(t&gt;1).*(t-1).*(t&lt;=2));
+h = @(t) heaviside(t)-heaviside(t-1);
+c = @(t) (t&gt;0).*(t-(t.^2)/2).*(t&lt;=1)+(t&gt;1).*(t.^2-3.*t+5/2).*(t&lt;=2)+(t&gt;2).*(-t.^2/2+2.*t-3/2).*(t&lt;=3);
+grafica2d(t,x(t),<span class="string">'x(t)'</span>);
+grafica2d(t,h(t),<span class="string">'h(t)'</span>);
+grafica2d(t,c(t),<span class="string">'x(t)*h(t)'</span>);
+<span class="comment">%Graficas de las se&ntilde;ales involucradas en la convolucion y la grafica de la convolucion</span>
+</pre><img vspace="5" hspace="5" src="Practica4_01.png" alt=""> <img vspace="5" hspace="5" src="Practica4_02.png" alt=""> <img vspace="5" hspace="5" src="Practica4_03.png" alt=""> <p>convconm(x,h,c); %llamada de la funci&oacute;n que realiza la convolucion</p><p>La grafica de color amarrillo es la gr&aacute;fica del resultado analitco y el punto movil es el resultado de la simulacion</p><p><img vspace="5" hspace="5" src="PR041.gif" alt=""> </p><p>Formula del resultado analitico</p><p><img vspace="5" hspace="5" src="ResPR041.PNG" alt=""> </p><h2 id="13">PR04 problema 3</h2><pre class="codeinput">x_1 = @(t) (t&lt;=0).*(0)+(t&gt;0).*(t).*(t&lt;=1)+(t&gt;1).*(1).*(t&lt;=2);
+h_1= @(t) (t&lt;=1).*(0)+(t&gt;1).*(1).*(t&lt;=3)+(t&gt;3).*(0);
+c_1= @(t) (t&gt;1).*((t.^2)/2-t+1/2).*(t&lt;=2)+(t&gt;2).*((2.*t+1)/2-2).*(t&lt;=3)+(t&gt;3).*((-t.^2+6.*t-8)/2+1).*(t&lt;=4)+(t&gt;4).*(-t+5).*(t&lt;=5);
+grafica2d(t,x_1(t),<span class="string">'x(t)'</span>);
+grafica2d(t,h_1(t),<span class="string">'h(t)'</span>);
+grafica2d(t,c_1(t),<span class="string">'x(t)*h(t)'</span>);
+<span class="comment">% Graficas de las se&ntilde;ales involucradas en la convolucion y la grafica de</span>
+<span class="comment">% la convolucion</span>
+</pre><img vspace="5" hspace="5" src="Practica4_04.png" alt=""> <img vspace="5" hspace="5" src="Practica4_05.png" alt=""> <img vspace="5" hspace="5" src="Practica4_06.png" alt=""> <p>convconm(x_1,h_1,c_1); %llamada de la funci&oacute;n que realiza la convolucion</p><p>La grafica de color amarrillo es la gr&aacute;fica del resultado analitco y el punto movil es el resultado de la simulacion</p><p><img vspace="5" hspace="5" src="PR042.gif" alt=""> </p><p>La formula del resultado analitco</p><p><img vspace="5" hspace="5" src="ResPR042.PNG" alt=""> </p><h2 id="17">PR06 problema e)</h2><pre class="codeinput">h_2= @(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+x_2= @(t) (-4&lt;t).*(-1).*(t&lt;=-3)+(-3&lt;t).*(1).*(t&lt;=0);
+c_2= @(t) (t&gt;3).*(-4+t).*(t&lt;4)+(t&gt;1).*(2-t).*(t&lt;3)+(t&gt;0).*(-3.*t+4).*(t&lt;1)+(t&gt;-1).*(3.*t+4).*(t&lt;0)+(t&gt;-3).*(t+2).*(t&lt;-1)+(t&gt;-4).*(-4-t).*(t&lt;-3);
+grafica2d(t,x_2(t),<span class="string">'x(t)'</span>);
+grafica2d(t,h_2(t),<span class="string">'x(-t)'</span>);
+grafica2d(t,c_2(t),<span class="string">'x(t)*x(-t)'</span>);
+<span class="comment">% Graficas de las se&ntilde;ales involucradas en la autocorrelacion y la grafica</span>
+<span class="comment">% de la autocorrelacion</span>
+</pre><img vspace="5" hspace="5" src="Practica4_07.png" alt=""> <img vspace="5" hspace="5" src="Practica4_08.png" alt=""> <img vspace="5" hspace="5" src="Practica4_09.png" alt=""> <p>convconm(x_2,h_2,c_2); %llamada de la funci&oacute;n que realiza la convolucion</p><p>La grafica de color amarrillo es la gr&aacute;fica del resultado analitco y el punto movil es el resultado de la simulacion</p><p><img vspace="5" hspace="5" src="PR06e.gif" alt=""> </p><p>formula del resultado analitico</p><p><img vspace="5" hspace="5" src="ResPR06e.PNG" alt=""> </p><h2 id="21">PR06 problema f)</h2><pre class="codeinput">h_3 = @(t) heaviside(t)-2.*heaviside(t-2)+heaviside(t-4);
+x_3= @(t) (-4&lt;t).*(-1).*(t&lt;=-3)+(-3&lt;t).*(1).*(t&lt;=0);
+c_3= @(t) (-4&lt;t).*(-4-t).*(t&lt;=-3)+(-3&lt;t).*(2+t).*(t&lt;=-2)+(-2&lt;t).*(6+3.*t).*(t&lt;=-1)+(-1&lt;t).*(2-t).*(t&lt;=0)+(0&lt;t).*(-3.*t+2).*(t&lt;=1)+(1&lt;t).*(-t).*(t&lt;=2)+(2&lt;t).*(t-4).*(t&lt;=4);
+grafica2d(t,x_3(t),<span class="string">'x(t)'</span>);
+grafica2d(t,h_3(t),<span class="string">'h(t)'</span>);
+grafica2d(t,c_3(t),<span class="string">'x(t)*h(-t)'</span>);
+<span class="comment">% Graficas de las se&ntilde;ales involucradas en la correlacion y la grafica de la</span>
+<span class="comment">% convolucion</span>
+</pre><img vspace="5" hspace="5" src="Practica4_10.png" alt=""> <img vspace="5" hspace="5" src="Practica4_11.png" alt=""> <img vspace="5" hspace="5" src="Practica4_12.png" alt=""> <p>convconm(x_3,h_3,c_3); %llamada de la funci&oacute;n que realiza la convolucion</p><p>La grafica de color amarrillo es la gr&aacute;fica del resultado analitco y el punto movil es el resultado de la simulacion</p><p><img vspace="5" hspace="5" src="PR06f.gif" alt=""> </p><p>formula del resultado analitico</p><p><img vspace="5" hspace="5" src="ResPR06f.PNG" alt=""> </p><h2 id="25">Apendice</h2><p>codigo de la funci&oacute;n convconm</p><pre class="language-matlab"><span class="keyword">function</span> convconm(x,h,c) <span class="comment">% ademas de la funcion x y h recibe como parametro la funcion c que es el resultado analitco de la convolucion</span>
+z = figure (1); <span class="comment">% Se crea una figura para hacer las gr&aacute;ficas</span>
+axis <span class="string">tight</span> <span class="string">manual</span> <span class="comment">% this ensures that getframe() returns a consistent size</span>
+filename = <span class="string">'conv.gif'</span>; <span class="comment">% nombre que tendr&aacute; nuestro archivo .gif</span>
+dtau = 0.005; <span class="comment">% Base de los rectangulos para realizar la integral</span>
+tau = -5:dtau:8; <span class="comment">% Intervalo de visualizaci&oacute;n del resultado</span>
+ti = 0; <span class="comment">% Indice para el vector de resultados</span>
+tvec = -5.25:.1:5.75; <span class="comment">% traslaciones de t, cuantas integrales se calulan</span>
+y = NaN*zeros(1, length (tvec)); <span class="comment">% Resultados de acuerdo a cuantos t</span>
+<span class="keyword">for</span> t = tvec <span class="comment">% Cantidad de traslaciones</span>
+    ti = ti+1; <span class="comment">% Indice para guardar el resultado (indice del tiempo)</span>
+    xh = x(t-tau).*h(tau); <span class="comment">% resultado de la multiplicaci&oacute;n</span>
+    lxh = length(xh); <span class="comment">% longitud del resultado</span>
+    y(ti) = sum(xh.*dtau); <span class="comment">% Base por altura, aproximaci&oacute;n de la integral</span>
+    subplot (2,1,1), <span class="comment">% gr&aacute;fica de 2 x 1 (primera)</span>
+    plot(tau, h(tau), <span class="string">'r-'</span>, tau, x(t-tau), <span class="string">'g--'</span>, t, 0, <span class="string">'ob'</span>); <span class="comment">%graficas</span>
+    axis ([tau(1) tau(end) -2.0 2.5]); <span class="comment">% l&iacute;mites de los ejes</span>
+    patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],<span class="keyword">...</span>
+    [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],<span class="keyword">...</span>
+    [.8 .8 .8], <span class="string">'edgecolor'</span>, <span class="string">'none'</span>);
+    xlabel(<span class="string">'\tau'</span>); <span class="comment">% Texto del eje X</span>
+    legend(<span class="string">'h(\tau)'</span>, <span class="string">'x(t-\tau)'</span>,<span class="string">'t'</span>,<span class="string">'h(\tau)x(t-\tau)'</span>)<span class="comment">% Caja de Texto</span>
+    subplot (2, 1, 2)  <span class="comment">% gr&aacute;fica de 2 x 1 (segunda)</span>
+    plot (tvec, y, <span class="string">'k'</span>, tvec (ti), y(ti), <span class="string">'ok'</span>,tau,c(tau)); <span class="comment">% se agrego la funcion c(tau) que corresponde al valor analitico</span>
+    xlabel (<span class="string">'t'</span>);
+    ylabel (<span class="string">'y(t) = \int h(\tau)x(t-\tau) d\tau'</span>);
+    axis ([tau(1) tau(end) -2.0 5.0]); <span class="comment">% l&iacute;mites del eje</span>
+    grid; <span class="comment">% malla</span>
+    drawnow <span class="comment">% efecto de movimiento continuo</span>
+</pre><pre>    frame = getframe(z); % Capture the plot as an image
+    im = frame2im(frame);
+    [imind,cm] = rgb2ind(im,256);
+     % Write to the GIF File
+    if t == -5.25 % t se debe modificar dependiendo de donde inicia la variable tvec
+       imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
+    else
+       imwrite(imind,cm,filename,'gif','WriteMode','append');
+    end</pre><pre class="language-matlab"><span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 4: Convolución y Correlación
+% integrantes:
+% Gómez García Carlos Eduardo
+% Contreras Porfirio Alejandro
+% Gómez Serrano Eric
+%% Objetivos
+% * Conocer métodos básicos de integración numérica
+% * Manipulación de instrucciones en MATLAB
+% * Simular convoluciones y correlaciones de señales continuas
+%% Introducción
+% Teorema fundamental del cálculo
+%
+% El Teorema fundamental del cálculo dice que la derivada de la integral
+% $F(x)$ de la funcion continua $f(x)$ es la propia $f(x)$ 
+%
+% $F'(x)=f(x)$ 
+%
+% Segun el Teorema fundamental del calculo se tiene que ver que si la funcion es integrable y el mismo teorema nos dice que toda funcion continua es integrable en un intervalo cualquiera.
+%
+% Tenemos la funcion $f(t)= 2e^{2t}$ y podemos ver que es integrable. Asi
+% que podemos proceder a integrar en un intervalo de [-2 2].
+%
+% $$\int_{0}^{\pi/2} sen(t)dt$$
+%
+% Desde el punto de vista geometrico es ver el area que delimita la funcion
+% y construir un polinomio que se parescan o tengan la misma altura para
+% ser equivalente. Propondremos el polinomio $P(t)=\sqrt{t}$
+%
+% Procedemos a integrar el polinomio
+%
+% $$\int_{0}^{\pi/2} \sqrt{t}dt= \int_{0}^{\pi/2} t^{\pi/2}dt= \left [
+% \frac{2t^{3/2}}{3}\right ]_{0}^{\pi/2}= \frac{2(\frac{\pi}{2})^{3/2}}{3}=
+% 1.3124$$
+%
+% Entonces
+% 
+% $$\int_{0}^{\pi/2} sen(t)dt< 1.3124$$
+%%
+% Regla del Trapecio
+%
+% Formulas cerradas de newton-cotes
+% Se trata de aproximar la integral de [a b] de la funcion. Lo que tratan de
+% hacer estas formulas es resolver la integral derivando la funcion un
+% numero determinado de veces y de acuerdo a la Teoria de Lagrande es igual
+% a un polinomio de grado n que es un polinomio que va a considir con la
+% funcion mas un termino de error.
+%
+% La primer formula de newton-cotes se le conoce como Regla del Trapecio
+% que hace es encontrar un polinimio de grado 1. Al lugar de integrar la
+% funcion esta integrando el polinimio de grado 1.
+%
+% $$\int_{x_0}^{x_1} f(x)dx= \frac{h}{2}\left [ f(x_0)-f(x_1)) \right
+% ]-\frac{h^{3}}{12}{f}''(\varepsilon )$ , $x_0<\varepsilon<x_1$$
+%
+% $h= b-a$,
+%
+% $x_0= a$,
+%
+% $x_1= b$,
+%
+% $x_i= a+i(b-a)$
+%
+% Entonces aplicando la regla de trapecio nos queda
+%
+% $$\int_{0}^{\frac{\pi}{2}} sen(x)dx= \frac{\frac{\
+% pi}{2}}{2}\left [0-1 \right
+% ]-\frac{\frac{\pi^3}{8}}{12}\left ( -sin(\varepsilon ) \right )= \frac{\pi}{4}+\frac{\pi^3}{96}sin(\varepsilon )$
+%%
+% Regla de Simpson 
+%
+% $$\int_{x_0}^{x_2} f(x)dx= \frac{h}{3}\left [ f(x_0)+4f(x_1)+f(x_2)) \right
+% ]-\frac{h^{5}}{90}{f}^4(\varepsilon )$ , $x_0<\varepsilon<x_2$$
+%
+% $h= \frac{b-a}{2}$,
+%
+% $x_0= a$,
+%
+% $x_2= b$,
+%
+% $x_i= a+ih$
+%
+% Aplicamos la regla de simpson
+%
+% $$\int_{0}^{\frac{\pi}{2}} sen(x)dx= \frac{\pi}{12}\left ( 0+2\sqrt{2}+1
+% \right )- \frac{\pi^3}{92160}\left ( sin(\varepsilon) \right )=
+% 1.002-\frac{\pi^5}{92160}sin(\varepsilon)$$
+%%
+% Regla de tres octavos de simpson
+%
+% $$\int_{x_0}^{x_3} f(x)dx= \frac{3h}{8}\left [ f(x_0)+3f(x_1)+3f(x_2)+f(x_3) \right
+% ]-\frac{3h^{5}}{80}{f}^4(\varepsilon )$ , $x_0<\varepsilon<x_2$$
+%
+% $h= \frac{b-a}{3}$,
+%
+% $x_0= a$,
+%
+% $x_3 b$,
+%
+% $x_i= a+ih$ 
+%
+% Aplicamos la regla de tres octavos de simpson
+%
+% $$\int_{0}^{\frac{\pi}{2}} sin(x)dx= \frac{\pi}{16}\left [ 0+.0274+.0548+1 \right
+% ]-\frac{\pi^5}{207360}sin(\varepsilon)= 1.001-\frac{\pi^5}{207360}sin(\varepsilon)$$
+%
+%%
+% Regla cerrada del trapecio
+%
+% $$  \int_{a}^{b}f(x)dx =\frac{h}{2} [f(a)+2\sum_{i=1}^{n-1}f(x_i)+f(b)]-\frac{b-a}{12}h^2f''(\mu), \space a<\mu<b $$
+%
+% $n$= numero de subintervalos
+% 
+% $h= \frac{b-a}{n}$
+%
+% $x_j=a+hj$
+%
+% $j=0,1,2,..,n$ 
+%
+%
+% Para nuestro ejemplo
+%
+% $n=4$
+%
+% $h=\frac{\pi}{8}$
+%
+% $x_0=0$
+%
+% $x_1=\frac{\pi}{8}$
+%
+% $x_2=\frac{\pi}{4}$
+%
+% $x_3=\frac{3\pi}{8}$
+%
+% $x_4=\frac{\pi}{2}$
+% 
+% $$\int_{o}^{\frac{\pi}{2}}sen(2x)dx =\frac{pi}{16} [2(sen(\frac{\pi}{8})+sen(\frac{3\pi}{8})]+\frac{\pi^3}{24*8^{2}}(4sen(2\mu)) ,\space 0<\mu<\frac{\pi}{2} $$
+%
+% $=0.94+0.08sen(2\mu), 0<\mu<\frac{\pi}{2}$  
+%
+%% Regla compuesta de Simpson
+%
+% $$\int_{a}^{b}f(x)dx =\frac{h}{3} [f(a)+2\sum_{i=1}^{\frac{n}{2}-1}f(x_{2i})+4\sum_{i=1}^{\frac{n}{2}}f(x_{2i-1})+f(b)]-\frac{b-a}{180}h^4f''(\mu), \space a<\mu<b $$
+%
+% $n$ par= numero de subintervalos
+% 
+% $h=\frac{b-a}{n}$
+%
+% $x_i=a+hi$
+%
+% $j=0,1,2,..,n$ 
+% 
+% Para nuestro ejemplo
+%
+% $n=6$
+%
+% $h=\frac{\pi}{12}$
+%
+% $x_0=0$
+%
+% $x_1=\frac{\pi}{12}$
+%
+% $x_2=\frac{\pi}{6}$
+%
+% $x_3=\frac{\pi}{4}$
+%
+% $x_4=\frac{\pi}{3}$
+%
+% $x_5=\frac{5\pi}{12}$
+%
+% $x_6=\frac{\pi}{2}$
+%
+% $$\int_{0}^{\frac{\pi}{2}}sen(2x)dx =\frac{\pi}{36}[2(sen(\frac{\pi}{3})+sen(\frac{2\pi}{3})+4(sen(\frac{\pi}{6})+sen(\frac{\pi}{2})+sen(\frac{5\pi}{6})]+\frac{\pi^5}{2*180*12^4}(16sen(2\mu)), 0<\mu<\frac{\pi}{2} $$
+%
+% $=1.00043-0.0006sen(2\mu),0<\mu<\frac{\pi}{2}$ 
+% 
+%% Cuadratura Gausseana
+%
+% Para cuadratura Gausseana utlizamos polinomios de Legendare en vez de los
+% polinomios de Lagrange, este metodo esta definido para integrales
+% definidas en un intervalo de -1 a 1, por lo tanto usamos un cambio de
+% variable para poder usarlo con cualquier funcion
+% 
+%
+% $$\int_{a}^{b}f(t)dt=\int_{-1}^{1}f(\frac{(b-a)x+a+b}{2})\frac{b-a}{2}dx$$ 
+% 
+% y la aproxiamion de una integral por cuadratura es:
+%
+% $$\int_{-1}^{1}f(x)dx=\sum_{i=1}^{n}C_if(x_i)$$
+%
+% Donde $C_i$ es el coeficiente de Legendare y $x_i$ son las raices del
+% polinomio de Legendare.
+%
+% Para nuestro ejemplo la integral queda:
+%
+% $$\int_{0}^{\frac{\pi}{2}}sen(2t)dt=\int_{-1}^{1}\frac{4}{\pi}sen((\frac{\pi}{2})x+\frac{\pi}{2})dx=\int_{-1}^{1}\frac{4}{\pi}sen((\frac{\pi}{2})(x+1))dx$$
+%
+% con $n=3$ tenemos 
+% $C_1=0.5555555556$
+%
+% $C_2=0.8888888889$
+% 
+% $C_3=0.5555555556$
+% 
+% $x_1=0.7745966692$
+% 
+% $x_2=0.0000000000$
+% 
+% $x_3=-0.7745966692$
+% 
+% $$\int_{0}^{\frac{\pi}{2}}sen(2t)dt=\frac{\pi}{4}[0.5555555556sen(\frac{\pi}{2}(1+0.7745966692))+0.8888888889sen(\frac{\pi}{2})+0.5555555556sen(\frac{\pi}{2}(1-0.7745966692))]$$
+% 
+% $=1.00069$
+% 
+%% PR04 problema 1
+t = -10:0.001:10;
+x = @(t) ((t>=0).*(1-t).*(t<=1)+(t>1).*(t-1).*(t<=2));
+h = @(t) heaviside(t)-heaviside(t-1);
+c = @(t) (t>0).*(t-(t.^2)/2).*(t<=1)+(t>1).*(t.^2-3.*t+5/2).*(t<=2)+(t>2).*(-t.^2/2+2.*t-3/2).*(t<=3);
+grafica2d(t,x(t),'x(t)');
+grafica2d(t,h(t),'h(t)');
+grafica2d(t,c(t),'x(t)*h(t)');
+%Graficas de las señales involucradas en la convolucion y la grafica de la convolucion
+%%
+% 
+% convconm(x,h,c); %llamada de la función que realiza la convolucion
+%
+%%
+% 
+% La grafica de color amarrillo es la gráfica del resultado analitco y el punto movil es el resultado de la simulacion
+%
+% <<PR041.gif>>
+% 
+%%
+% Formula del resultado analitico
+%
+% <<ResPR041.PNG>>
+% 
+%% PR04 problema 3
+x_1 = @(t) (t<=0).*(0)+(t>0).*(t).*(t<=1)+(t>1).*(1).*(t<=2);
+h_1= @(t) (t<=1).*(0)+(t>1).*(1).*(t<=3)+(t>3).*(0);
+c_1= @(t) (t>1).*((t.^2)/2-t+1/2).*(t<=2)+(t>2).*((2.*t+1)/2-2).*(t<=3)+(t>3).*((-t.^2+6.*t-8)/2+1).*(t<=4)+(t>4).*(-t+5).*(t<=5);
+grafica2d(t,x_1(t),'x(t)');
+grafica2d(t,h_1(t),'h(t)');
+grafica2d(t,c_1(t),'x(t)*h(t)');
+% Graficas de las señales involucradas en la convolucion y la grafica de
+% la convolucion
+%%
+% 
+% convconm(x_1,h_1,c_1); %llamada de la función que realiza la convolucion
+%
+%%
+% 
+% La grafica de color amarrillo es la gráfica del resultado analitco y el punto movil es el resultado de la simulacion
+%
+% <<PR042.gif>>
+%
+%%
+% La formula del resultado analitco
+% 
+% <<ResPR042.PNG>>
+% 
+%% PR06 problema e)
+h_2= @(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+x_2= @(t) (-4<t).*(-1).*(t<=-3)+(-3<t).*(1).*(t<=0);
+c_2= @(t) (t>3).*(-4+t).*(t<4)+(t>1).*(2-t).*(t<3)+(t>0).*(-3.*t+4).*(t<1)+(t>-1).*(3.*t+4).*(t<0)+(t>-3).*(t+2).*(t<-1)+(t>-4).*(-4-t).*(t<-3);
+grafica2d(t,x_2(t),'x(t)');
+grafica2d(t,h_2(t),'x(-t)');
+grafica2d(t,c_2(t),'x(t)*x(-t)');
+% Graficas de las señales involucradas en la autocorrelacion y la grafica
+% de la autocorrelacion 
+%%
+% 
+% convconm(x_2,h_2,c_2); %llamada de la función que realiza la convolucion
+%
+%%
+% 
+% La grafica de color amarrillo es la gráfica del resultado analitco y el punto movil es el resultado de la simulacion
+%
+% <<PR06e.gif>>
+%
+%%
+% formula del resultado analitico
+%
+% <<ResPR06e.PNG>>
+% 
+%% PR06 problema f)
+h_3 = @(t) heaviside(t)-2.*heaviside(t-2)+heaviside(t-4);
+x_3= @(t) (-4<t).*(-1).*(t<=-3)+(-3<t).*(1).*(t<=0);
+c_3= @(t) (-4<t).*(-4-t).*(t<=-3)+(-3<t).*(2+t).*(t<=-2)+(-2<t).*(6+3.*t).*(t<=-1)+(-1<t).*(2-t).*(t<=0)+(0<t).*(-3.*t+2).*(t<=1)+(1<t).*(-t).*(t<=2)+(2<t).*(t-4).*(t<=4);
+grafica2d(t,x_3(t),'x(t)');
+grafica2d(t,h_3(t),'h(t)');
+grafica2d(t,c_3(t),'x(t)*h(-t)');
+% Graficas de las señales involucradas en la correlacion y la grafica de la
+% convolucion 
+%%
+% 
+% convconm(x_3,h_3,c_3); %llamada de la función que realiza la convolucion
+%
+%%
+% 
+% La grafica de color amarrillo es la gráfica del resultado analitco y el punto movil es el resultado de la simulacion
+%
+% <<PR06f.gif>>
+% 
+% formula del resultado analitico
+%
+%%
+% 
+% <<ResPR06f.PNG>>
+% 
+%
+%% Apendice
+% codigo de la función convconm
+%
+%   function convconm(x,h,c) % ademas de la funcion x y h recibe como parametro la funcion c que es el resultado analitco de la convolucion
+%   z = figure (1); % Se crea una figura para hacer las gráficas
+%   axis tight manual % this ensures that getframe() returns a consistent size
+%   filename = 'conv.gif'; % nombre que tendrá nuestro archivo .gif
+%   dtau = 0.005; % Base de los rectangulos para realizar la integral 
+%   tau = -5:dtau:8; % Intervalo de visualización del resultado
+%   ti = 0; % Indice para el vector de resultados
+%   tvec = -5.25:.1:5.75; % traslaciones de t, cuantas integrales se calulan  
+%   y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
+%   for t = tvec % Cantidad de traslaciones
+%       ti = ti+1; % Indice para guardar el resultado (indice del tiempo)
+%       xh = x(t-tau).*h(tau); % resultado de la multiplicación 
+%       lxh = length(xh); % longitud del resultado
+%       y(ti) = sum(xh.*dtau); % Base por altura, aproximación de la integral
+%       subplot (2,1,1), % gráfica de 2 x 1 (primera)
+%       plot(tau, h(tau), 'r-', tau, x(t-tau), 'gREPLACE_WITH_DASH_DASH', t, 0, 'ob'); %graficas 
+%       axis ([tau(1) tau(end) -2.0 2.5]); % límites de los ejes
+%       patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],...
+%       [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],...
+%       [.8 .8 .8], 'edgecolor', 'none');
+%       xlabel('\tau'); % Texto del eje X
+%       legend('h(\tau)', 'x(t-\tau)','t','h(\tau)x(t-\tau)')% Caja de Texto  
+%       subplot (2, 1, 2)  % gráfica de 2 x 1 (segunda)
+%       plot (tvec, y, 'k', tvec (ti), y(ti), 'ok',tau,c(tau)); % se agrego la funcion c(tau) que corresponde al valor analitico
+%       xlabel ('t'); 
+%       ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
+%       axis ([tau(1) tau(end) -2.0 5.0]); % límites del eje
+%       grid; % malla
+%       drawnow % efecto de movimiento continuo
+%       
+%       
+%      frame = getframe(z); % Capture the plot as an image
+%      im = frame2im(frame); 
+%      [imind,cm] = rgb2ind(im,256); 
+%       % Write to the GIF File
+%      if t == -5.25 % t se debe modificar dependiendo de donde inicia la variable tvec
+%         imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+%      else 
+%         imwrite(imind,cm,filename,'gif','WriteMode','append');
+%      end 
+%       
+%   end
+%   end
+%%
+
+
+##### SOURCE END #####
+--></body></html>
