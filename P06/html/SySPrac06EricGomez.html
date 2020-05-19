@@ -1,0 +1,1010 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 6: Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-19"><meta name="DC.source" content="practica6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Integrantes: G&oacute;mez Serrano Eric, G&oacute;mez Garc&iacute;a Carlos Eduardo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Funci&oacute;n de transferencia del sistema</a></li><li><a href="#3">La respuesta al impulso</a></li><li><a href="#4">Respuesta a entrada cero</a></li><li><a href="#5">Respuesta a estado cero</a></li><li><a href="#6">Respuesta Total</a></li><li><a href="#7">respuesta total al escalon (con condiciones iniciales 0)</a></li><li><a href="#8">Gr&aacute;ficas</a></li><li><a href="#9">Apendice</a></li></ul></div><p>Se utilizar&aacute; la siguiente ecuaci&oacute;n diferencial para probar las funciones que se muestran a continuaci&oacute;n. El c&oacute;digo de cada funci&oacute;n se encuentra en el apendice. <img src="practica6_eq01856038884126396419.png" alt="$$\ddot{y}(t)+2\dot{y}(t)+3y(t)=\dot{x}(t)-x(t),\;\;y(0)=1,\;y'(0)=1,\;x(t)=cos(2t)u(t)$"></p><h2 id="2">Funci&oacute;n de transferencia del sistema</h2><pre class="codeinput">ftransferencia([3 2 1],[-1 1])
+</pre><pre class="codeoutput"> 
+Funcion de Transferencia
+ 
+H(s)=
+    s - 1
+------------
+ 2
+s  + 2 s + 3
+
+</pre><h2 id="3">La respuesta al impulso</h2><pre class="codeinput">rimpulso([3 2 1],[-1 1],10)
+</pre><pre class="codeoutput"> 
+La Respuesta al impulso es
+ 
+y(t)=
+exp(-t) (cos(sqrt(2) t) - sqrt(2) sin(sqrt(2) t))
+
+</pre><img vspace="5" hspace="5" src="practica6_01.png" alt=""> <h2 id="4">Respuesta a entrada cero</h2><pre class="codeinput">syms <span class="string">t</span>
+rentradacero([3 2 1],[1 1],10)
+</pre><pre class="codeoutput"> 
+La respuesta a entrada cero es
+ 
+y(t)=
+exp(-t) (cos(sqrt(2) t) + sqrt(2) sin(sqrt(2) t))
+
+</pre><img vspace="5" hspace="5" src="practica6_02.png" alt=""> <h2 id="5">Respuesta a estado cero</h2><pre class="codeinput">syms <span class="string">t</span>
+restadocero([3 2 1], [-1 1],cos(2*t)*heaviside(t),10)
+</pre><pre class="codeoutput"> 
+La respuesta a estado cero es
+ 
+y(t)=
+cos(2 t) 9   sin(2 t) 2
+---------- - ----------
+    17           17
+
+             /                  2 sqrt(2) sin(sqrt(2) t) \
+     exp(-t) | cos(sqrt(2) t) - ------------------------ | 9
+             \                              3            /
+   - -------------------------------------------------------
+                                17
+
+</pre><img vspace="5" hspace="5" src="practica6_03.png" alt=""> <h2 id="6">Respuesta Total</h2><pre class="codeinput">syms <span class="string">t</span>
+rtotal([3 2 1],[-1 1],[1 1],cos(2*t)*heaviside(t),10)
+</pre><pre class="codeoutput"> 
+La respuesta total es
+ 
+y(t)=
+cos(2 t) 9   sin(2 t) 2
+---------- - ----------
+    17           17
+
+             /                  23 sqrt(2) sin(sqrt(2) t) \
+     exp(-t) | cos(sqrt(2) t) + ------------------------- | 8
+             \                              8             /
+   + --------------------------------------------------------
+                                17
+
+</pre><img vspace="5" hspace="5" src="practica6_04.png" alt=""> <h2 id="7">respuesta total al escalon (con condiciones iniciales 0)</h2><pre class="codeinput">rtotalescalon([3 2 1],[-1 1],10)
+</pre><pre class="codeoutput"> 
+Ruespuesta total al escalon
+ 
+y(t)=
+exp(-t) (cos(sqrt(2) t) + 2 sqrt(2) sin(sqrt(2) t))   1
+--------------------------------------------------- - -
+                         3                            3
+
+</pre><img vspace="5" hspace="5" src="practica6_05.png" alt=""> <h2 id="8">Gr&aacute;ficas</h2><pre class="codeinput">graficador5G([3 2 1],[-1 1],[1 1],cos(2*t)*heaviside(t),10)
+</pre><img vspace="5" hspace="5" src="practica6_06.png" alt=""> <h2 id="9">Apendice</h2><p>el c&oacute;dgio de esta publicaci&oacute;n lo puede encontrar en el siguiente enlace <a href="https://drive.matlab.com/sharing/cd85021f-5ffb-4d29-a5e2-55f500963f9e">https://drive.matlab.com/sharing/cd85021f-5ffb-4d29-a5e2-55f500963f9e</a></p><pre>function ftransferencia(a,b)
+ %a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+ %b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+close all
+tam=size(a);
+tami=size(b);
+syms H(s) P(s) Q(s);
+H(s)=0;
+P(s) = 0;
+Q(s) = 0;</pre><pre>for i=1:tam(2)
+   Q(s)=Q(s)+a(i)*(s)^(i-1);
+end</pre><pre>for i=1:tami(2)
+   P(s)=P(s)+b(i)*(s)^(i-1);
+end</pre><pre>mensaje('Funcion de Transferencia')
+H(s) =  P(s)/Q(s);
+disp('H(s)=')
+pretty(H(s))</pre><pre>end</pre><pre>function rimpulso(a,b)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+close all
+tam=size(a);
+tami=size(b);
+syms H(s) P(s) Q(s) y(t);
+H(s)=0;
+P(s) = 0;
+Q(s) = 0;</pre><pre>for i=1:tam(2)
+   Q(s)=Q(s)+a(i)*(s)^(i-1);
+end</pre><pre>for i=1:tami(2)
+   P(s)=P(s)+b(i)*(s)^(i-1);
+end
+H(s) =  P(s)/Q(s);
+pretty(partfrac(H(s)));</pre><pre>mensaje('La Respuesta al impulso es')
+disp('y(t)=')
+y(t)=ilaplace(H(s));
+pretty(y(t))
+fplot(y,'r','LineWidth',2)
+title('Respuesta al impulso')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on
+end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function rentradacero(a,ciy,t0)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% t0 tiempo final para graficar la solucion, la derivada, y la segunda
+% derivada
+close all
+tam=size(a);</pre><pre>syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi P(s) Q(s)
+edd=0;
+edi=0;</pre><pre class="language-matlab"><span class="keyword">for</span> i=1:tam(2)
+  edd=edd+a(i)*s^(i-1)*Y(s);
+  <span class="keyword">for</span> k=1:i-1
+      edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;</pre><pre>edd=solve(eq1, Yy);</pre><pre>pretty(partfrac(edd));</pre><pre>mensaje('La respuesta a entrada cero es')
+disp('y(t)=')
+y(t)=ilaplace(edd);
+pretty(y(t))
+fplot(y,[0,t0],'g','LineWidth',2)
+title('Respuesta a Entrada Cero')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function restadocero(a,b,xi,t0)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente
+% declarada en el command window
+% t0 tiempo final para graficar la solucion, la derivada, y la segunda
+close all
+tam=size(a);
+tami=size(b);
+syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi P(s) Q(s)
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*0);
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+pretty(simplify(edd));</pre><pre>pretty(partfrac(edd));</pre><pre>mensaje('La respuesta a estado cero es')
+disp('y(t)=')
+y(t)=ilaplace(edd);
+pretty(y(t))
+fplot(xi,[0, t0],'b','LineWidth',2)
+hold on
+fplot(y,[0,t0],'r','LineWidth',2)
+title('Respuesta a Estado Cero')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function restadocero(a,b,xi,t0)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente
+% declarada en el command window
+% t0 tiempo final para graficar la solucion, la derivada, y la segunda
+close all
+tam=size(a);
+tami=size(b);
+syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi P(s) Q(s)
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*0);
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+pretty(simplify(edd));</pre><pre>pretty(partfrac(edd));</pre><pre>mensaje('La respuesta a estado cero es')
+disp('y(t)=')
+y(t)=ilaplace(edd);
+pretty(y(t))
+fplot(xi,[0, t0],'b','LineWidth',2)
+hold on
+fplot(y,[0,t0],'r','LineWidth',2)
+title('Respuesta a Estado Cero')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function rtotal(a,b,ciy,xi)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]
+% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente
+% declarada en el command window
+close all
+tam=size(a);
+tami=size(b);
+syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);</pre><pre>mensaje('La respuesta total es')
+disp('y(t)=')
+y(t)=ilaplace(edd);
+pretty(y(t))
+fplot(y(t),'b','LineWidth',2)
+title('Respuesta Total')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on
+end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function rtotalescalon(a,b)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]</pre><pre>close all
+tam=size(a);
+tami=size(b);</pre><pre>syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi
+edd=0;
+edi=0;
+xi=heaviside(t);</pre><pre>for i=1:tam(2)
+  edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*0*(k));
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;</pre><pre>edd=solve(eq1, Yy);
+pretty(simplify(edd));</pre><pre>pretty(partfrac(edd));</pre><pre>mensaje('Ruespuesta total al escalon')
+disp('y(t)=')
+y(t)=ilaplace(edd);
+pretty(y(t))
+fplot(y(t),'c','LineWidth',2)
+title('Respuesta Total al Escalon')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>end</pre><pre>function mensaje(texto)
+disp( ' ')
+disp(texto)
+disp( ' ')
+end</pre><pre>function graficador5G(a,b,ciy,xi,t0)
+% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]
+% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente
+% declarada en el command window
+% t0 tiempo final para graficar la solucion, la derivada, y la segunda
+close all
+tam=size(a);
+tami=size(b);
+syms H(s) P(s) Q(s) y(t);
+H(s)=0;
+P(s) = 0;
+Q(s) = 0;</pre><pre>for i=1:tam(2)
+   Q(s)=Q(s)+a(i)*(s)^(i-1);
+end</pre><pre>for i=1:tami(2)
+   P(s)=P(s)+b(i)*(s)^(i-1);
+end
+H(s) =  P(s)/Q(s);
+%pretty(partfrac(H(s)));</pre><pre>%mensaje('La Respuesta al impulso es')
+%disp('y(t)=')
+y(t)=ilaplace(H(s));
+%pretty(y(t))
+subplot(321)%--------------------
+fplot(y,[0,t0],'r','LineWidth',2)
+title('Respuesta al impulso')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi P(s) Q(s)
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   end
+end</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;</pre><pre>edd=solve(eq1, Yy);</pre><pre>%pretty(partfrac(edd));</pre><pre>%mensaje('La respuesta a entrada cero es')
+%disp('y(t)=')
+y(t)=ilaplace(edd);
+%pretty(y(t))
+subplot(322)%-------------------------
+fplot(y,[0,t0],'g','LineWidth',2)
+title('Respuesta a Entrada Cero')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi
+edd=0;
+edi=0;
+xi_2=heaviside(t);</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*0*(k));
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi_2));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;</pre><pre>edd=solve(eq1, Yy);
+%pretty(simplify(edd));</pre><pre>%pretty(partfrac(edd));</pre><pre>%mensaje('Ruespuesta total al escalon')
+%disp('y(t)=')
+y(t)=ilaplace(edd);
+%pretty(y(t))
+subplot(323)%-----------------------
+fplot(y(t),[0,t0],'c','LineWidth',2)
+title('Respuesta Total al Escalon')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>tam=size(a);
+tami=size(b);
+syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);</pre><pre>%mensaje('La respuesta total es')
+%disp('y(t)=')
+y(t)=ilaplace(edd);
+%pretty(y(t))
+subplot(324)
+fplot(y(t),[0,t0],'b','LineWidth',2)
+title('Respuesta Total')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on</pre><pre>syms y(t) Y(s) x(t) X(s) Yy fp;
+syms edd edi P(s) Q(s)
+edd=0;
+edi=0;</pre><pre>for i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   for k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*0);
+   end
+end</pre><pre>for i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+end</pre><pre>edi=subs(edi,X(s), laplace(xi));</pre><pre>edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+%pretty(simplify(edd));</pre><pre>%pretty(partfrac(edd));</pre><pre>%mensaje('La respuesta a estado cero es')
+%disp('y(t)=')
+y(t)=ilaplace(edd);
+%pretty(y(t))
+subplot(414)
+fplot(xi,[0, t0],'b','LineWidth',2)
+hold on
+fplot(y,[0,t0],'r','LineWidth',2)
+title('Respuesta a Estado Cero')
+legend('Entrada x(t)','Salida y(t)','Location','Best')
+xlabel('tiempo','FontWeight','bold','FontSize',16)
+grid on
+end</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 6: Sistemas diferenciales
+% Integrantes: Gómez Serrano Eric, Gómez García Carlos Eduardo
+%
+%%
+% Se utilizará la siguiente ecuación diferencial para probar las funciones
+% que se muestran a continuación. El código de cada función se encuentra en
+% el apendice.
+% $$\ddot{y}(t)+2\dot{y}(t)+3y(t)=\dot{x}(t)-x(t),\;\;y(0)=1,\;y'(0)=1,\;x(t)=cos(2t)u(t)$
+% 
+%% Función de transferencia del sistema
+ftransferencia([3 2 1],[-1 1])
+%% La respuesta al impulso
+rimpulso([3 2 1],[-1 1],10)
+%% Respuesta a entrada cero
+syms t
+rentradacero([3 2 1],[1 1],10)
+%% Respuesta a estado cero
+syms t
+restadocero([3 2 1], [-1 1],cos(2*t)*heaviside(t),10)
+%% Respuesta Total
+syms t
+rtotal([3 2 1],[-1 1],[1 1],cos(2*t)*heaviside(t),10)
+%% respuesta total al escalon (con condiciones iniciales 0)
+rtotalescalon([3 2 1],[-1 1],10)
+%% Gráficas
+graficador5G([3 2 1],[-1 1],[1 1],cos(2*t)*heaviside(t),10)
+
+%% Apendice
+% el códgio de esta publicación lo puede encontrar en el siguiente enlace <https://drive.matlab.com/sharing/cd85021f-5ffb-4d29-a5e2-55f500963f9e> 
+%%
+%  function ftransferencia(a,b)
+%   %a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%   %b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]    
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms H(s) P(s) Q(s);
+%  H(s)=0;
+%  P(s) = 0;
+%  Q(s) = 0;
+% 
+%  for i=1:tam(2)
+%     Q(s)=Q(s)+a(i)*(s)^(i-1);
+%  end
+% 
+%  for i=1:tami(2)
+%     P(s)=P(s)+b(i)*(s)^(i-1);
+%  end
+% 
+%  mensaje('Funcion de Transferencia')
+%  H(s) =  P(s)/Q(s);
+%  disp('H(s)=')
+%  pretty(H(s))
+% 
+%  end
+%
+%
+%
+%  function rimpulso(a,b)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms H(s) P(s) Q(s) y(t);
+%  H(s)=0;
+%  P(s) = 0;
+%  Q(s) = 0;
+% 
+%  for i=1:tam(2)
+%     Q(s)=Q(s)+a(i)*(s)^(i-1);
+%  end
+% 
+%  for i=1:tami(2)
+%     P(s)=P(s)+b(i)*(s)^(i-1);
+%  end
+%  H(s) =  P(s)/Q(s);
+%  pretty(partfrac(H(s)));
+% 
+%  mensaje('La Respuesta al impulso es')
+%  disp('y(t)=')
+%  y(t)=ilaplace(H(s));
+%  pretty(y(t))
+%  fplot(y,'r','LineWidth',2)
+%  title('Respuesta al impulso')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+%  end
+%
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function rentradacero(a,ciy,t0)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  % t0 tiempo final para graficar la solucion, la derivada, y la segunda
+%  % derivada
+%  close all
+%  tam=size(a);
+% 
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi P(s) Q(s)
+%  edd=0;
+%  edi=0;
+% 
+%   for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+%     end
+%  end
+%    
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+% 
+%  edd=solve(eq1, Yy);
+% 
+%  pretty(partfrac(edd));
+% 
+%  mensaje('La respuesta a entrada cero es')
+%  disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  pretty(y(t))
+%  fplot(y,[0,t0],'g','LineWidth',2)
+%  title('Respuesta a Entrada Cero')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+%  end
+% 
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function restadocero(a,b,xi,t0)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  % xi función de entrada en terminos de la variable simbolica t previamente
+%  % declarada en el command window
+%  % t0 tiempo final para graficar la solucion, la derivada, y la segunda 
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi P(s) Q(s)
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*0);
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+%  edd=solve(eq1, Yy);
+%  pretty(simplify(edd));
+% 
+%  pretty(partfrac(edd));
+% 
+%  mensaje('La respuesta a estado cero es')
+%  disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  pretty(y(t))
+%  fplot(xi,[0, t0],'b','LineWidth',2)
+%  hold on
+%  fplot(y,[0,t0],'r','LineWidth',2)
+%  title('Respuesta a Estado Cero')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+%     
+%  end
+% 
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function restadocero(a,b,xi,t0)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  % xi función de entrada en terminos de la variable simbolica t previamente
+%  % declarada en el command window
+%  % t0 tiempo final para graficar la solucion, la derivada, y la segunda 
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi P(s) Q(s)
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*0);
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+%  edd=solve(eq1, Yy);
+%  pretty(simplify(edd));
+% 
+%  pretty(partfrac(edd));
+% 
+%  mensaje('La respuesta a estado cero es')
+%  disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  pretty(y(t))
+%  fplot(xi,[0, t0],'b','LineWidth',2)
+%  hold on
+%  fplot(y,[0,t0],'r','LineWidth',2)
+%  title('Respuesta a Estado Cero')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+%     
+%  end
+% 
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function rtotal(a,b,ciy,xi)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  % ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]
+%  % xi función de entrada en terminos de la variable simbolica t previamente
+%  % declarada en el command window 
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+%  edd=solve(eq1, Yy);
+% 
+% 
+%  mensaje('La respuesta total es')
+%  disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  pretty(y(t))
+%  fplot(y(t),'b','LineWidth',2)
+%  title('Respuesta Total')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+%  end
+% 
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function rtotalescalon(a,b)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+% 
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+% 
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi
+%  edd=0;
+%  edi=0;
+%  xi=heaviside(t);
+% 
+%  for i=1:tam(2)
+%    edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*0*(k));
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+% 
+%  edd=solve(eq1, Yy);
+%  pretty(simplify(edd));
+% 
+%  pretty(partfrac(edd));
+% 
+%  mensaje('Ruespuesta total al escalon')
+%  disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  pretty(y(t))
+%  fplot(y(t),'c','LineWidth',2)
+%  title('Respuesta Total al Escalon')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+%  end
+% 
+%  function mensaje(texto)
+%  disp( ' ')
+%  disp(texto)
+%  disp( ' ')
+%  end
+%
+%
+%
+%  function graficador5G(a,b,ciy,xi,t0)
+%  % a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]
+%  % b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]
+%  % ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]
+%  % xi función de entrada en terminos de la variable simbolica t previamente
+%  % declarada en el command window
+%  % t0 tiempo final para graficar la solucion, la derivada, y la segunda 
+%  close all
+%  tam=size(a);
+%  tami=size(b);
+%  syms H(s) P(s) Q(s) y(t);
+%  H(s)=0;
+%  P(s) = 0;
+%  Q(s) = 0;
+% 
+%  for i=1:tam(2)
+%     Q(s)=Q(s)+a(i)*(s)^(i-1);
+%  end
+% 
+%  for i=1:tami(2)
+%     P(s)=P(s)+b(i)*(s)^(i-1);
+%  end
+%  H(s) =  P(s)/Q(s);
+%  %pretty(partfrac(H(s)));
+% 
+%  %mensaje('La Respuesta al impulso es')
+%  %disp('y(t)=')
+%  y(t)=ilaplace(H(s));
+%  %pretty(y(t))
+%  subplot(321)%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  fplot(y,[0,t0],'r','LineWidth',2)
+%  title('Respuesta al impulso')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+% 
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi P(s) Q(s)
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+%     end
+%  end
+%    
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+% 
+%  edd=solve(eq1, Yy);
+% 
+%  %pretty(partfrac(edd));
+% 
+%  %mensaje('La respuesta a entrada cero es')
+%  %disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  %pretty(y(t))
+%  subplot(322)%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%  fplot(y,[0,t0],'g','LineWidth',2)
+%  title('Respuesta a Entrada Cero')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+% 
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi
+%  edd=0;
+%  edi=0;
+%  xi_2=heaviside(t);
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*0*(k));
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi_2));
+% 
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+% 
+%  edd=solve(eq1, Yy);
+%  %pretty(simplify(edd));
+% 
+%  %pretty(partfrac(edd));
+% 
+%  %mensaje('Ruespuesta total al escalon')
+%  %disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  %pretty(y(t))
+%  subplot(323)%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%  fplot(y(t),[0,t0],'c','LineWidth',2)
+%  title('Respuesta Total al Escalon')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+% 
+%  tam=size(a);
+%  tami=size(b);
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+%  edd=solve(eq1, Yy);
+% 
+% 
+%  %mensaje('La respuesta total es')
+%  %disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  %pretty(y(t))
+%  subplot(324)
+%  fplot(y(t),[0,t0],'b','LineWidth',2)
+%  title('Respuesta Total')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+% 
+% 
+%  syms y(t) Y(s) x(t) X(s) Yy fp;
+%  syms edd edi P(s) Q(s)
+%  edd=0;
+%  edi=0;
+% 
+%  for i=1:tam(2)
+%     edd=edd+a(i)*s^(i-1)*Y(s);
+%     for k=1:i-1
+%         edd=edd-a(i)*(s^(i-1-k)*0);
+%     end
+%  end
+% 
+%  for i=1:tami(2)
+%     edi=edi+b(i)*s^(i-1)*X(s);
+%  end
+% 
+%  edi=subs(edi,X(s), laplace(xi));
+% 
+%  edd=collect(edd,Y(s));
+%  edd=subs(edd,Y(s),Yy);
+%  eq1=edd==edi;
+%  edd=solve(eq1, Yy);
+%  %pretty(simplify(edd));
+% 
+%  %pretty(partfrac(edd));
+% 
+%  %mensaje('La respuesta a estado cero es')
+%  %disp('y(t)=')
+%  y(t)=ilaplace(edd);
+%  %pretty(y(t))
+%  subplot(414)
+%  fplot(xi,[0, t0],'b','LineWidth',2)
+%  hold on
+%  fplot(y,[0,t0],'r','LineWidth',2)
+%  title('Respuesta a Estado Cero')
+%  legend('Entrada x(t)','Salida y(t)','Location','Best')
+%  xlabel('tiempo','FontWeight','bold','FontSize',16)
+%  grid on
+%  end
+##### SOURCE END #####
+--></body></html>
