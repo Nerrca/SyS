@@ -1,0 +1,519 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Practica 8: Simulink</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-21"><meta name="DC.source" content="practica8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Practica 8: Simulink</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Problema 1</a></li><li><a href="#9">Problema 2</a></li><li><a href="#10">Problema 3</a></li></ul></div><p><b>integrantes:</b> Gomez Serrano Eric, Vazquez Cruz Rodrigo, Gomez Garcia Carlos Eduardo</p><p><b>Objetivos:</b></p><div><ul><li>Conocer Simulink</li><li>Implementar simulaciones de ecuaciones diferenciales en Simulink</li></ul></div><p><b>Desarrollo:</b></p><h2 id="2">Problema 1</h2><p><img vspace="5" hspace="5" src="Prob1.PNG" alt=""> </p><p><b>solucion analitica y grafica de la solucion analitica de la ecuacion a)</b></p><pre class="codeinput">syms <span class="string">t</span>
+f_t = 2*cos(4*t-(pi/3))*heaviside(t);
+laplace2016a([6 5 1],1,[1 0],f_t,10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                         2
+6 Y(s) - s + 5 s Y(s) + s  Y(s) - 5
+
+=
+X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                         2
+6 Y(s) - s + 5 s Y(s) + s  Y(s) - 5
+
+=
+4 sqrt(3)      s
+--------- + -------
+  2          2
+ s  + 16    s  + 16
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+ 3      2
+s  + 5 s  + 17 s + 4 sqrt(3) + 80
+---------------------------------
+       2         2
+     (s  + 16) (s  + 5 s + 6)
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+sqrt(3)   29   4 sqrt(3)   47   2 sqrt(3)     / sqrt(3)    1 \    4
+------- + --   --------- + --   --------- + s | ------- + -- | - --
+   5      10       25      25       25        \    25     50 /   25
+------------ - -------------- - -----------------------------------
+    s + 2           s + 3                      2
+                                              s  + 16
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+sin(4 t)   cos(4 t)   sqrt(3) sin(4 t)             / sqrt(3)   29 \
+-------- - -------- - ---------------- + exp(-2 t) | ------- + -- |
+   25         50             50                    \    5      10 /
+
+               / 4 sqrt(3)   47 \   sqrt(3) cos(4 t)
+   - exp(-3 t) | --------- + -- | - ----------------
+               \     25      25 /          25
+
+</pre><img vspace="5" hspace="5" src="practica8_01.png" alt=""> <p><b>solucion analitica y grafica de la solucion analitca de la ecuacion b)</b></p><pre class="codeinput">f_t= heaviside(t);
+laplace2016a([6 5 1],[0 1],[1 0],f_t,10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                         2
+6 Y(s) - s + 5 s Y(s) + s  Y(s) - 5
+
+=
+s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                         2
+6 Y(s) - s + 5 s Y(s) + s  Y(s) - 5
+
+=
+1
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+    s + 6
+------------
+ 2
+s  + 5 s + 6
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+  4       3
+----- - -----
+s + 2   s + 3
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-2 t) 4 - exp(-3 t) 3
+
+</pre><img vspace="5" hspace="5" src="practica8_02.png" alt=""> <p><b>para la ecuacion a)</b></p><p>Diagrama de simulink</p><p><img vspace="5" hspace="5" src="prob1a)c).PNG" alt=""> </p><p>grafica de solucion de simulink</p><p><img vspace="5" hspace="5" src="prob1a)d).PNG" alt=""> </p><p><b>para la ecuacion b)</b></p><p>Diagrama de simulink</p><p><img vspace="5" hspace="5" src="prob1b)c).PNG" alt=""> </p><p>grafica de solucion de simulink</p><p><img vspace="5" hspace="5" src="prob1b)d).PNG" alt=""> </p><p><i>Inciso f i)</i></p><pre class="codeinput">ftransferencia([6 5 1],1)
+</pre><pre class="codeoutput"> 
+Funcion de Transferencia
+ 
+H(s)=
+      1
+------------
+ 2
+s  + 5 s + 6
+
+</pre><p><img src="practica8_eq13434464905308982163.png" alt="$f(t)= 2cos(4t-\frac{\pi}{3})u(t)$"></p><p><img src="practica8_eq16277973941628702913.png" alt="$\frac{\partial^2 }{\partial t^2} + 5\frac{\partial }{\partial t} + 6y(t)$"></p><p><img src="practica8_eq09870631868157209171.png" alt="$H(jw)= \frac{1}{(jw)^{2}+5jw+6}$"></p><p><img src="practica8_eq14946617734316603899.png" alt="$\left \| H(j4) \right \|= \frac{\left \| 1 \right \|}{\left \| -10+20j \right \|}= \frac{1}{\sqrt{10^{2}+20^{2}}}= 0.044$"></p><p><img src="practica8_eq16706828646026887525.png" alt="$\angle H(j4)= \arctan (\frac{0}{1}) - \arctan (\frac{20}{-10})= -2.034$"></p><p><img src="practica8_eq10698803292970971491.png" alt="$Y_{ss}(t)= \left \| H(j4) \right \|2cos (4t-\frac{pi}{3}+\angle H(j4))$"></p><p><img src="practica8_eq13515265127027533016.png" alt="$Y_{ss}(t)= .044*2cos (4t-\frac{\pi}{3}-2.034)= 0.089\cos (4t-\frac{\pi}{3}-2.034)$"></p><pre class="codeinput">t= (0:1e-3:10);
+Yss = 0.089*cos(4*t-(pi/3)-2.034).*heaviside(t);
+plot(t,Yss,<span class="string">'linewidth'</span>,2,<span class="string">'color'</span>,<span class="string">'r'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="practica8_03.png" alt=""> <p><i>Inciso f ii)</i></p><pre class="codeinput">w = (0:0.1:10);
+absH= @(w) 1./((6-w.^2).^2+(5*w).^2).^0.5;
+angH= @(w) atan2d(0,1)-atan2d(5*w,(6-w.^2));
+
+subplot(121)
+plot(w,absH(w))
+grid <span class="string">on</span>
+title(<span class="string">'|H(j\omega)|'</span>)
+xlabel(<span class="string">'\omega'</span>)
+
+subplot(122)
+plot(w,angH(w))
+grid <span class="string">on</span>
+title(<span class="string">'\angle H(j\omega)'</span>)
+xlabel(<span class="string">'\omega'</span>)
+</pre><img vspace="5" hspace="5" src="practica8_04.png" alt=""> <p><i>Inciso f iii)</i></p><pre class="codeinput">subplot(121)
+plot(w,absH(w))
+hold <span class="string">on</span>
+p2= plot(4,absH(4),<span class="string">'ro'</span>);
+legend(p2,<span class="string">'Escalamiento para w=4'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'|H(j\omega)|'</span>)
+xlabel(<span class="string">'\omega'</span>)
+
+subplot(122)
+plot(w,angH(w))
+hold <span class="string">on</span>
+p3= plot(4,angH(4),<span class="string">'ro'</span>);
+legend(p3,<span class="string">'Traslacion en grados para w=4'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'\angle H(j\omega)'</span>)
+xlabel(<span class="string">'\omega'</span>)
+</pre><img vspace="5" hspace="5" src="practica8_05.png" alt=""> <h2 id="9">Problema 2</h2><p>Un p&eacute;ndulo doble oscila en un plano vertical bajo la acci&oacute;n de la gravedad. Para desplazamientos peque&ntilde;os <img src="practica8_eq11066774799090172276.png" alt="$\theta_1(t)$"> y <img src="practica8_eq00509787607673738456.png" alt="$\theta_2(t)$">, es posible demostrar que las ecuaciones diferenciales del movimiento son</p><p><img src="practica8_eq17176800161030461054.png" alt="$$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$"></p><p><img src="practica8_eq10485034359302715337.png" alt="$$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$"></p><p>donde <img src="practica8_eq00786909496420729905.png" alt="$m_1=0.1$">, <img src="practica8_eq15602869864492907101.png" alt="$m_2=0.1$">, <img src="practica8_eq15147460706885708536.png" alt="$l_1=l_2=1$">, <img src="practica8_eq02641250903781312135.png" alt="$\theta_1(0)=-1$">, <img src="practica8_eq09574318526791701494.png" alt="$\theta_2(0)=1$">, <img src="practica8_eq12830856720803665175.png" alt="$\dot{\theta_1}(0)=0$"> <img src="practica8_eq04913149351752566599.png" alt="$\dot{\theta_2}(0)=0$">.</p><p>a)Realiza la soluci&oacute;n s&iacute;mbolica como en el siguiente <a href="https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html">documento</a></p><pre>                               y gr&aacute;fica las soluciones , se utilizo como referencia el siguiente &lt;https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html codigo&gt;</pre><pre class="codeinput"><span class="comment">% Resolver ecuacion diferencial</span>
+<span class="comment">%</span>
+clear <span class="string">all</span>;
+close <span class="string">all</span>;
+clc
+<span class="comment">% Variables simbolicas</span>
+syms <span class="string">theta1(t)</span> <span class="string">theta2(t)</span> <span class="string">s</span>
+m1 = 0.1;
+m2 = 0.1;
+l1 = 1;
+l2 = 2;
+g =9.8;
+assume(t &gt; 0)
+<span class="comment">% Para obtener las diferenciales</span>
+dtheta1 = diff(theta1, t); <span class="comment">% Primera derivada de theta1</span>
+ddtheta1 = diff(theta1,t, 2); <span class="comment">% Segunda derivada de theta1</span>
+dtheta2 = diff(theta2, t); <span class="comment">% Primera dervidad de theta</span>
+ddtheta2 = diff(theta2,t, 2); <span class="comment">% Segunda dervida de theta1</span>
+<span class="comment">% Para las ecuaciones</span>
+<span class="comment">% eqn1 = (m1 + m2)*(l1^2)*ddtheta1 + m2*l1*l2*ddtheta2 + (m1 + m2)*l1*g*theta1 == 0</span>
+<span class="comment">% eqn2 = m2*(l2^2)*ddtheta2 + m2*l1*l2*ddtheta1 + m2*l2*g*theta2 == 0</span>
+eqn1 = 4*ddtheta1 + ddtheta2 + 8*theta1 == 0;
+eqn2 = ddtheta1 + ddtheta2 + 2*theta2 == 0;
+cond1 = theta1(0) == -1;
+cond2 = theta2(0) == 1;
+cond3 = dtheta1(0) == 0;
+cond4 = dtheta2(0) == 0;
+<span class="comment">% Laplace</span>
+eqn1LT = laplace(eqn1,t,s);
+eqn2LT = laplace(eqn2,t,s);
+<span class="comment">% Necesitamos hacer una sustitucion</span>
+syms <span class="string">theta1_LT</span> <span class="string">theta2_LT</span>
+eqn1LT = subs(eqn1LT,[laplace(theta1(t), t, s) laplace(theta2(t), t, s)],[theta1_LT theta2_LT]);
+eqn2LT = subs(eqn2LT,[laplace(theta1(t), t, s) laplace(theta2(t), t, s)],[theta1_LT theta2_LT]);
+<span class="comment">% Resolvemos la ecuaci&oacute;n</span>
+eqns = [eqn1LT eqn2LT];
+vars = [theta1_LT theta2_LT];
+[theta1_LT, theta2_LT] = solve(eqns,vars);
+<span class="comment">% Una vez resuelta la ecuacion, calculamos la transformada inversa de</span>
+<span class="comment">% Laplace</span>
+theta1sol = ilaplace(theta1_LT,s,t);
+theta2sol = ilaplace(theta2_LT,s,t);
+<span class="comment">% Simplificamos la soluci&oacute;n</span>
+theta1sol = simplify(theta1sol);
+theta2sol = simplify(theta2sol);
+<span class="comment">% Ultimas sustituciones</span>
+vars = [theta1(0) theta2(0) dtheta1(0) dtheta2(0)];
+values = [-1 1 0 0];
+theta1sol = subs(theta1sol,vars,values)
+theta2sol = subs(theta2sol,vars,values)
+<span class="comment">% Para gr&aacute;ficar (en esta parte se utilizo la referencia citada anteriormente)</span>
+subplot(2,2,1)
+fplot(theta1sol)
+title(<span class="string">'\theta_1'</span>)
+ylabel(<span class="string">'I1(t)'</span>)
+xlabel(<span class="string">'t'</span>)
+subplot(2,2,2)
+fplot(theta2sol,[0 10])
+title(<span class="string">'\theta_2'</span>)
+ylabel(<span class="string">'Q(t)'</span>)
+xlabel(<span class="string">'t'</span>)
+subplot(2,2,3)
+fplot(theta1sol,[5 25])
+title(<span class="string">'\theta_1'</span>)
+ylabel(<span class="string">'I1(t)'</span>)
+xlabel(<span class="string">'t'</span>)
+
+subplot(2,2,4)
+fplot(theta2sol,[5 25])
+title(<span class="string">'\theta_2'</span>)
+ylabel(<span class="string">'Q(t)'</span>)
+xlabel(<span class="string">'t'</span>)
+</pre><pre class="codeoutput"> 
+theta1sol =
+ 
+- (3*cos(2*t))/4 - cos((2*3^(1/2)*t)/3)/4
+ 
+ 
+theta2sol =
+ 
+(3*cos(2*t))/2 - cos((2*3^(1/2)*t)/3)/2
+ 
+</pre><img vspace="5" hspace="5" src="practica8_06.png" alt=""> <h2 id="10">Problema 3</h2><p>Simulink utiliza una t&eacute;cnica conocida como detecci&oacute;n de cruce por cero para localizar con precisi&oacute;n una discontinuidad sin recurrir a pasos de tiempo excesivamente peque&ntilde;os. Por lo general, esta t&eacute;cnica mejora el tiempo de ejecuci&oacute;n de la simulaci&oacute;n, pero puede hacer que algunas simulaciones se detengan antes del tiempo de finalizaci&oacute;n previsto. Este ejemplo muestra c&oacute;mo funcionan los cruces por cero en Simulink. En este modelo, tres ondas sinusoidales desplazadas se introducen en un bloque de valor absoluto y un bloque de saturaci&oacute;n. En exactamente t = 5, la salida del bloque de conmutaci&oacute;n cambia del valor absoluto al bloque de saturaci&oacute;n. Los cruces por cero en Simulink detectar&aacute;n autom&aacute;ticamente exactamente cu&aacute;ndo el bloque del interruptor cambia su salida, y el solucionador pasar&aacute; a la hora exacta en que ocurre el evento.</p><p>Esquema de simulink</p><p><img vspace="5" hspace="5" src="prob3sim.PNG" alt=""> </p><p>Grafica de simulink</p><p><img vspace="5" hspace="5" src="prob3gra.PNG" alt=""> </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Practica 8: Simulink
+%%
+% *integrantes:* Gomez Serrano Eric, Vazquez Cruz Rodrigo, Gomez Garcia Carlos Eduardo
+%
+% *Objetivos:*
+% 
+% * Conocer Simulink
+% * Implementar simulaciones de ecuaciones diferenciales en Simulink
+% 
+% *Desarrollo:*
+%% Problema 1
+% 
+% <<Prob1.PNG>>
+%
+% *solucion analitica y grafica de la solucion analitica de la ecuacion a)*
+syms t
+f_t = 2*cos(4*t-(pi/3))*heaviside(t);
+laplace2016a([6 5 1],1,[1 0],f_t,10)
+%%
+% *solucion analitica y grafica de la solucion analitca de la ecuacion b)*
+f_t= heaviside(t);
+laplace2016a([6 5 1],[0 1],[1 0],f_t,10)
+%%
+% 
+% *para la ecuacion a)*
+%
+% Diagrama de simulink
+%
+% <<prob1a)c).PNG>>
+%
+% grafica de solucion de simulink
+% 
+% <<prob1a)d).PNG>>
+% 
+% *para la ecuacion b)*
+%
+% Diagrama de simulink
+% 
+% <<prob1b)c).PNG>>
+%
+% grafica de solucion de simulink
+% 
+% <<prob1b)d).PNG>>
+% 
+%
+%%
+% _Inciso f i)_
+%
+ftransferencia([6 5 1],1)
+%%
+% $f(t)= 2cos(4t-\frac{\pi}{3})u(t)$
+%
+% $\frac{\partial^2 }{\partial t^2} + 5\frac{\partial }{\partial t} + 6y(t)$
+%
+% $H(jw)= \frac{1}{(jw)^{2}+5jw+6}$
+%
+% $\left \| H(j4) \right \|= \frac{\left \| 1 \right \|}{\left \| -10+20j
+% \right \|}= \frac{1}{\sqrt{10^{2}+20^{2}}}= 0.044$
+%
+% $\angle H(j4)= \arctan (\frac{0}{1}) - \arctan (\frac{20}{-10})= -2.034$
+%
+% $Y_{ss}(t)= \left \| H(j4) \right \|2cos (4t-\frac{pi}{3}+\angle
+% H(j4))$
+%
+% $Y_{ss}(t)= .044*2cos (4t-\frac{\pi}{3}-2.034)= 0.089\cos
+% (4t-\frac{\pi}{3}-2.034)$
+%
+t= (0:1e-3:10);
+Yss = 0.089*cos(4*t-(pi/3)-2.034).*heaviside(t);
+plot(t,Yss,'linewidth',2,'color','r')
+grid on
+
+%%
+% _Inciso f ii)_
+w = (0:0.1:10);
+absH= @(w) 1./((6-w.^2).^2+(5*w).^2).^0.5;
+angH= @(w) atan2d(0,1)-atan2d(5*w,(6-w.^2));
+
+subplot(121)
+plot(w,absH(w))
+grid on
+title('|H(j\omega)|')
+xlabel('\omega')
+
+subplot(122)
+plot(w,angH(w))
+grid on
+title('\angle H(j\omega)')
+xlabel('\omega')
+%%
+% _Inciso f iii)_
+subplot(121)
+plot(w,absH(w))
+hold on
+p2= plot(4,absH(4),'ro');
+legend(p2,'Escalamiento para w=4')
+grid on
+title('|H(j\omega)|')
+xlabel('\omega')
+
+subplot(122)
+plot(w,angH(w))
+hold on
+p3= plot(4,angH(4),'ro');
+legend(p3,'Traslacion en grados para w=4')
+grid on
+title('\angle H(j\omega)')
+xlabel('\omega')
+%% Problema 2
+%
+%
+% Un péndulo doble oscila en un plano vertical bajo la acción de la gravedad. 
+% Para desplazamientos pequeños $\theta_1(t)$ y $\theta_2(t)$, es posible 
+% demostrar que las ecuaciones diferenciales del movimiento son
+%
+% 
+% $$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$
+% 
+% $$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$
+% 
+% donde $m_1=0.1$, $m_2=0.1$, 
+% $l_1=l_2=1$, $\theta_1(0)=-1$, $\theta_2(0)=1$, $\dot{\theta_1}(0)=0$ 
+% $\dot{\theta_2}(0)=0$.
+%
+% a)Realiza la solución símbolica como en el siguiente <https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html documento> 
+%
+%                                 y gráfica las soluciones , se utilizo como referencia el siguiente <https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html codigo> 
+
+% Resolver ecuacion diferencial
+%
+clear all;
+close all;
+clc
+% Variables simbolicas
+syms theta1(t) theta2(t) s
+m1 = 0.1;
+m2 = 0.1;
+l1 = 1;
+l2 = 2;
+g =9.8;
+assume(t > 0)
+% Para obtener las diferenciales
+dtheta1 = diff(theta1, t); % Primera derivada de theta1
+ddtheta1 = diff(theta1,t, 2); % Segunda derivada de theta1
+dtheta2 = diff(theta2, t); % Primera dervidad de theta
+ddtheta2 = diff(theta2,t, 2); % Segunda dervida de theta1
+% Para las ecuaciones
+% eqn1 = (m1 + m2)*(l1^2)*ddtheta1 + m2*l1*l2*ddtheta2 + (m1 + m2)*l1*g*theta1 == 0
+% eqn2 = m2*(l2^2)*ddtheta2 + m2*l1*l2*ddtheta1 + m2*l2*g*theta2 == 0
+eqn1 = 4*ddtheta1 + ddtheta2 + 8*theta1 == 0;
+eqn2 = ddtheta1 + ddtheta2 + 2*theta2 == 0;
+cond1 = theta1(0) == -1;
+cond2 = theta2(0) == 1;
+cond3 = dtheta1(0) == 0;
+cond4 = dtheta2(0) == 0;
+% Laplace
+eqn1LT = laplace(eqn1,t,s);
+eqn2LT = laplace(eqn2,t,s);
+% Necesitamos hacer una sustitucion
+syms theta1_LT theta2_LT
+eqn1LT = subs(eqn1LT,[laplace(theta1(t), t, s) laplace(theta2(t), t, s)],[theta1_LT theta2_LT]);
+eqn2LT = subs(eqn2LT,[laplace(theta1(t), t, s) laplace(theta2(t), t, s)],[theta1_LT theta2_LT]);
+% Resolvemos la ecuación
+eqns = [eqn1LT eqn2LT];
+vars = [theta1_LT theta2_LT];
+[theta1_LT, theta2_LT] = solve(eqns,vars);
+% Una vez resuelta la ecuacion, calculamos la transformada inversa de
+% Laplace
+theta1sol = ilaplace(theta1_LT,s,t);
+theta2sol = ilaplace(theta2_LT,s,t);
+% Simplificamos la solución
+theta1sol = simplify(theta1sol);
+theta2sol = simplify(theta2sol);
+% Ultimas sustituciones
+vars = [theta1(0) theta2(0) dtheta1(0) dtheta2(0)];
+values = [-1 1 0 0];
+theta1sol = subs(theta1sol,vars,values)
+theta2sol = subs(theta2sol,vars,values)
+% Para gráficar (en esta parte se utilizo la referencia citada anteriormente)
+subplot(2,2,1)
+fplot(theta1sol)                      
+title('\theta_1')
+ylabel('I1(t)')
+xlabel('t')
+subplot(2,2,2)
+fplot(theta2sol,[0 10])                        
+title('\theta_2')
+ylabel('Q(t)')
+xlabel('t')
+subplot(2,2,3)
+fplot(theta1sol,[5 25])                  
+title('\theta_1')
+ylabel('I1(t)')
+xlabel('t')
+
+subplot(2,2,4)
+fplot(theta2sol,[5 25])                        
+title('\theta_2')
+ylabel('Q(t)')
+xlabel('t')
+
+
+
+
+%% Problema 3
+%
+%
+% Simulink utiliza una técnica conocida como detección de cruce por cero para localizar con precisión una discontinuidad sin recurrir a pasos de tiempo excesivamente pequeños. Por lo general, esta técnica mejora el tiempo de ejecución de la simulación, pero puede hacer que algunas simulaciones se detengan antes del tiempo de finalización previsto.
+% Este ejemplo muestra cómo funcionan los cruces por cero en Simulink. En este modelo, tres ondas sinusoidales desplazadas se introducen en un bloque de valor absoluto y un bloque de saturación. En exactamente t = 5, la salida del bloque de conmutación cambia del valor absoluto al bloque de saturación. Los cruces por cero en Simulink detectarán automáticamente exactamente cuándo el bloque del interruptor cambia su salida, y el solucionador pasará a la hora exacta en que ocurre el evento.
+%
+% Esquema de simulink
+%
+% <<prob3sim.PNG>>
+%
+% Grafica de simulink
+%
+% <<prob3gra.PNG>>
+% 
+##### SOURCE END #####
+--></body></html>
